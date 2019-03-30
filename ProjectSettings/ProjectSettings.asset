@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
-  AndroidEnableTango: 1
+  AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
   m_AndroidBanners:
@@ -711,10 +711,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 2
-  cloudProjectId: 170019a6-3785-4ce1-9502-1f81e05f7a4d
+  cloudProjectId: b07c678c-2f8f-41b3-b7fd-aaf964a97853
   framebufferDepthMemorylessMode: 0
-  projectName: postcARds
-  organizationId: sherlynng99
+  projectName: postcARds (1)
+  organizationId: marlenek
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
