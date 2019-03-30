@@ -10,6 +10,7 @@ public class ARTapToPlaceObject : MonoBehaviour {
     public GameObject placementIndicator;
     public GameObject objectToPlace;
     public Camera ARCamera;
+    public GameObject selectedObject;
 
     private ARSessionOrigin arOrigin;
     private Pose placementPose;
@@ -24,14 +25,24 @@ public class ARTapToPlaceObject : MonoBehaviour {
     {
         UpdatePlacementPose();
         UpdatePlacementIndicator();
+
+        //if (Input.touchCount == 0)
+        //{
+        //    Ray raycast = ARCamera.ScreenPointToRay(Input.GetTouch(0).position);
+        //    RaycastHit raycastHit;
+        //    if (Physics.Raycast(raycast, out raycastHit))
+        //    {
+        //        selectedObject = raycastHit.transform.gameObject;
+        //    }
+        //}
         
-        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            PlaceObject();
-        }
+        //if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        //{
+        //    PlaceObject();
+        //}
 	}
 
-    private void PlaceObject()
+    public void PlaceObject()
     {
         Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
     }
@@ -52,7 +63,7 @@ public class ARTapToPlaceObject : MonoBehaviour {
 
     private void UpdatePlacementPose()
     {
-        Vector3 screenCenter = ARCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
         arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
 
@@ -61,8 +72,10 @@ public class ARTapToPlaceObject : MonoBehaviour {
         {
             placementPose = hits[0].pose;
 
-            Vector3 cameraForward = ARCamera.transform.forward;
-            Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+            //Vector3 cameraForward = ARCamera.transform.forward;
+            //Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+            var cameraForward = Camera.current.transform.forward;
+            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
