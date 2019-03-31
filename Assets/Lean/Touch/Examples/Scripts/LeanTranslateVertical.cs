@@ -4,7 +4,7 @@ namespace Lean.Touch
 {
 	/// <summary>This script allows you to translate the current GameObject relative to the camera.</summary>
 	[HelpURL(LeanTouch.HelpUrlPrefix + "LeanTranslate")]
-	public class LeanTranslate : MonoBehaviour
+	public class LeanTranslateVertical : MonoBehaviour
 	{
 		[Tooltip("Ignore fingers with StartedOverGui?")]
 		public bool IgnoreStartedOverGui = true;
@@ -43,6 +43,8 @@ namespace Lean.Touch
 
 			// Calculate the screenDelta value based on these fingers
 			var screenDelta = LeanGesture.GetScreenDelta(fingers);
+            // Ignore vertical movement
+            screenDelta.x = 0;
 
             if (screenDelta != Vector2.zero)
 			{

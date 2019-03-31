@@ -91,9 +91,11 @@ GameObject:
   - component: {fileID: 7941645484898286048}
   - component: {fileID: 5164938727351819357}
   - component: {fileID: 6600407863453916744}
+  - component: {fileID: 30354053697568043}
+  - component: {fileID: 5503220213747725171}
   m_Layer: 0
   m_Name: Brush
-  m_TagString: Furniture
+  m_TagString: Brush
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,7 +195,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
   m_Name: 
@@ -211,7 +213,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
   m_Name: 
@@ -222,6 +224,41 @@ MonoBehaviour:
   RequiredSelectable: {fileID: 6520830087819429251}
   Axis: {x: -1, y: 0, z: 0}
   Space: 1
+--- !u!114 &30354053697568043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IgnoreStartedOverGui: 1
+  IgnoreIsOverGui: 1
+  RequiredFingerCount: 2
+  RequiredSelectable: {fileID: 6520830087819429251}
+  Axis: {x: 0, y: -1, z: 0}
+  Space: 1
+--- !u!114 &5503220213747725171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a9b648442cb9e4f82b7a28ca120d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IgnoreStartedOverGui: 1
+  IgnoreIsOverGui: 0
+  RequiredFingerCount: 1
+  RequiredSelectable: {fileID: 6520830087819429251}
+  Camera: {fileID: 0}
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0

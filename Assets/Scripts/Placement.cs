@@ -24,8 +24,16 @@ public class Placement : MonoBehaviour
     {
         UpdatePlacementPose();
         UpdatePlacementIndicator();
-    }
 
+        //foreach (Transform child in objects.transform)
+        //{
+        //    string position = child.gameObject.transform.position.ToString();
+        //    string rotation = child.gameObject.transform.rotation.ToString();
+        //    string scale = child.gameObject.transform.localScale.ToString();
+        //    Debug.Log(child.gameObject.tag + ": " + position + ", " + rotation + ", " + scale);
+        //}
+    }
+    
     public void SetObjectToPlace(GameObject obj)
     {
         objectToPlace = obj;
@@ -36,6 +44,7 @@ public class Placement : MonoBehaviour
         var newObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation * objectToPlace.transform.rotation);
         newObject.transform.parent = objects.transform;
         furnitures.Add(newObject);
+
     }
 
     private void UpdatePlacementIndicator()
@@ -44,7 +53,8 @@ public class Placement : MonoBehaviour
         {
             string position = placementPose.position.ToString();
             string rotation = " R: " + placementPose.rotation.ToString();
-            SSTools.ShowMessage(position + rotation, SSTools.Position.top, SSTools.Time.oneSecond);
+            //SSTools.ShowMessage(position + rotation, SSTools.Position.top, SSTools.Time.oneSecond);
+            //Debug.Log(position + rotation);
             placementIndicator.SetActive(true);
             placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
         }
@@ -60,10 +70,13 @@ public class Placement : MonoBehaviour
         Vector3 screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         RaycastHit rayHit;
 
+        //SSTools.ShowMessage("Update Pose", SSTools.Position.top, SSTools.Time.oneSecond);
+
         //if (Physics.Raycast(Camera.current.ScreenPointToRay(screenCenter), out rayHit))
         if (Physics.Raycast(arCamera.ScreenPointToRay(screenCenter), out rayHit))
+        //if (Physics.Raycast(screenCenter, arCamera.transform.forward, out rayHit))
         {
-           // SSTools.ShowMessage("Raycast Hit", SSTools.Position.top, SSTools.Time.oneSecond);
+            //SSTools.ShowMessage("Raycast Hit", SSTools.Position.top, SSTools.Time.oneSecond);
 
             if (rayHit.collider.gameObject.CompareTag("PlacementPlane"))
             {
@@ -74,7 +87,7 @@ public class Placement : MonoBehaviour
 
                 Vector3 cameraForward = arCamera.transform.forward;
                 Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+                //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
             }
         }
     }
@@ -86,7 +99,7 @@ public class Placement : MonoBehaviour
 
         if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
         {
-            if (!rayHit.collider.gameObject.CompareTag("PlacementPlane"))
+            if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
             {
                 Destroy(rayHit.transform.gameObject);
             }
