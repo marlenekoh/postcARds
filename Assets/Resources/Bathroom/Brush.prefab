@@ -89,8 +89,6 @@ GameObject:
   - component: {fileID: 1389550404977762885}
   - component: {fileID: 6520830087819429251}
   - component: {fileID: 7941645484898286048}
-  - component: {fileID: 5164938727351819357}
-  - component: {fileID: 6600407863453916744}
   - component: {fileID: 30354053697568043}
   - component: {fileID: 5503220213747725171}
   m_Layer: 0
@@ -107,7 +105,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.8157606, y: 0, z: -1.5947385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -188,42 +186,6 @@ MonoBehaviour:
   ScaleClamp: 0
   ScaleMin: {x: 0, y: 0, z: 0}
   ScaleMax: {x: 0, y: 0, z: 0}
---- !u!114 &5164938727351819357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IgnoreStartedOverGui: 1
-  IgnoreIsOverGui: 1
-  RequiredFingerCount: 2
-  RequiredSelectable: {fileID: 6520830087819429251}
-  Axis: {x: 0, y: 0, z: -1}
-  Space: 1
---- !u!114 &6600407863453916744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IgnoreStartedOverGui: 1
-  IgnoreIsOverGui: 1
-  RequiredFingerCount: 3
-  RequiredSelectable: {fileID: 6520830087819429251}
-  Axis: {x: -1, y: 0, z: 0}
-  Space: 1
 --- !u!114 &30354053697568043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnoreStartedOverGui: 1
-  IgnoreIsOverGui: 0
+  IgnoreIsOverGui: 1
   RequiredFingerCount: 1
   RequiredSelectable: {fileID: 6520830087819429251}
   Camera: {fileID: 0}
