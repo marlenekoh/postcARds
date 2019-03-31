@@ -29,13 +29,15 @@ public class QRDecode : MonoBehaviour
     public GameObject entryNotFoundDialog;
     public GameObject entryInvalidDialog;
 
+    private JsonData jsonvale;
+
     private void Start()
 	{
 		if (this.e_qrController != null)
 		{
 			this.e_qrController.onQRScanFinished += new QRCodeDecodeController.QRScanFinished(this.qrScanFinished);
 		}
-	}
+    }
 
 	private void Update()
 	{
@@ -49,7 +51,6 @@ public class QRDecode : MonoBehaviour
         {
             if (int.TryParse(id_str, out id_int) && id_int >= 0)
             {
-                Debug.Log(id_int);
                 this.UiText.text = id_str;
                 StartCoroutine(GetRequest("https://valiant-postcard.herokuapp.com/retrieve?id=" + id_str));
             } else
@@ -89,7 +90,7 @@ public class QRDecode : MonoBehaviour
 
     private void Processjson(string jsonString)
     {
-        JsonData jsonvale = JsonMapper.ToObject(jsonString);
+        jsonvale = JsonMapper.ToObject(jsonString);
         bool hasRecord = (jsonvale["has_record"].ToString() == "true");
         DisplayDialog(hasRecord);
     }
@@ -185,8 +186,14 @@ public class QRDecode : MonoBehaviour
 		{
 			this.e_qrController.StopWork();
 		}
-		//Application.LoadLevel(scenename);
-		SceneManager.LoadScene(scenename);
+
+        if (jsonvale != null)
+        {
+            Session.CreateSession(jsonvale);
+        }
+
+        //Application.LoadLevel(scenename);
+        SceneManager.LoadScene(scenename);
 	}
 
 	/// <summary>
@@ -208,17 +215,4 @@ public class QRDecode : MonoBehaviour
 		}
 		#endif
 	}
-
-    public void openScene(string name)
-    {
-        if (name == "old")
-        {
-            SceneManager.LoadScene("Customization");
-        } else
-        {
-            // open new scene
-        }
-    }
-
-
 }
