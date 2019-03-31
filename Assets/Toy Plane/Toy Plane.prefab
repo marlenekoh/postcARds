@@ -41,11 +41,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 23}
-  - component: {fileID: 1149181634361522558}
-  - component: {fileID: 9153753339400891064}
-  - component: {fileID: 3762251739427780043}
-  - component: {fileID: 6400991195180175110}
-  - component: {fileID: 7923981327442519837}
+  - component: {fileID: 3416372756196757320}
+  - component: {fileID: 8939949873968423944}
   m_Layer: 0
   m_Name: Toy Plane
   m_TagString: Untagged
@@ -68,7 +65,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1149181634361522558
+--- !u!114 &3416372756196757320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,7 +101,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   isSelected: 0
---- !u!114 &9153753339400891064
+--- !u!114 &8939949873968423944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,66 +116,13 @@ MonoBehaviour:
   IgnoreStartedOverGui: 1
   IgnoreIsOverGui: 0
   RequiredFingerCount: 2
-  RequiredSelectable: {fileID: 1149181634361522558}
+  RequiredSelectable: {fileID: 3416372756196757320}
   Camera: {fileID: 0}
   WheelSensitivity: 0
   Relative: 0
   ScaleClamp: 0
   ScaleMin: {x: 0, y: 0, z: 0}
   ScaleMax: {x: 0, y: 0, z: 0}
---- !u!114 &3762251739427780043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IgnoreStartedOverGui: 1
-  IgnoreIsOverGui: 0
-  RequiredFingerCount: 3
-  RequiredSelectable: {fileID: 1149181634361522558}
-  Axis: {x: -1, y: 0, z: 0}
-  Space: 1
---- !u!114 &6400991195180175110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7c91b26689a054d88448aba6dfe424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IgnoreStartedOverGui: 1
-  IgnoreIsOverGui: 0
-  RequiredFingerCount: 2
-  RequiredSelectable: {fileID: 1149181634361522558}
-  Axis: {x: 0, y: -1, z: 0}
-  Space: 1
---- !u!114 &7923981327442519837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eda371e5375f454490a86f21559ee38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IgnoreStartedOverGui: 1
-  IgnoreIsOverGui: 0
-  RequiredFingerCount: 1
-  RequiredSelectable: {fileID: 1149181634361522558}
-  Camera: {fileID: 0}
 --- !u!1 &17
 GameObject:
   m_ObjectHideFlags: 0

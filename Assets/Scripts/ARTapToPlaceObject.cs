@@ -2,81 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.XR;
-using UnityEngine.XR.ARFoundation;
 
 public class ARTapToPlaceObject : MonoBehaviour {
 
     public GameObject placementIndicator;
     public GameObject objectToPlace;
     public Camera ARCamera;
-    public GameObject selectedObject;
-
-    private ARSessionOrigin arOrigin;
+    
     private Pose placementPose;
     private bool placementPoseIsValid = false;
+    private List<GameObject> furnitures = new List<GameObject>();
 
 	void Start ()
     {
-        arOrigin = FindObjectOfType<ARSessionOrigin>();
 	}
 
 	void Update ()
     {
-        UpdatePlacementPose();
-        UpdatePlacementIndicator();
 
-        //if (Input.touchCount == 0)
-        //{
-        //    Ray raycast = ARCamera.ScreenPointToRay(Input.GetTouch(0).position);
-        //    RaycastHit raycastHit;
-        //    if (Physics.Raycast(raycast, out raycastHit))
-        //    {
-        //        selectedObject = raycastHit.transform.gameObject;
-        //    }
-        //}
-        
-        //if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        //{
-        //    PlaceObject();
-        //}
 	}
+
+    public void SetObjectToPlace(GameObject obj)
+    {
+        objectToPlace = obj;
+    }
 
     public void PlaceObject()
     {
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        GameObject createdObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation * objectToPlace.transform.rotation);
+        furnitures.Add(createdObject);
     }
+    
 
-    private void UpdatePlacementIndicator()
+    public void Reset()
     {
-        if (placementPoseIsValid)
+        foreach (GameObject furniture in furnitures)
         {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-
+            Destroy(furniture);
         }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
-    }
 
-    private void UpdatePlacementPose()
-    {
-        Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        List<ARRaycastHit> hits = new List<ARRaycastHit>();
-        arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
-
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            placementPose = hits[0].pose;
-
-            //Vector3 cameraForward = ARCamera.transform.forward;
-            //Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            var cameraForward = Camera.current.transform.forward;
-            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing);
-        }
+        furnitures = new List<GameObject>();
     }
 }

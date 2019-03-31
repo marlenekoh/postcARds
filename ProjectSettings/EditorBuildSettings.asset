@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Main.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/__DELETED_GUID_Trash/a12146a958e89f34f990319a7638fdc3
-    guid: a12146a958e89f34f990319a7638fdc3
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/QRScanner.unity
-    guid: ddab7cb20600748499e42af59a0e579a
+    path: Assets/Scenes/Customization.unity
+    guid: ff59e1a52da706c46b9776def5fd98e8
   m_configObjects: {}
