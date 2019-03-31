@@ -94,7 +94,7 @@ namespace Lean.Touch
                 string x = worldPoint.x.ToString();
                 string y = worldPoint.y.ToString();
                 string z = worldPoint.z.ToString();
-                SSTools.ShowMessage(x + ", " + y + ", " + z, SSTools.Position.top, SSTools.Time.oneSecond);
+                //SSTools.ShowMessage(x + ", " + y + ", " + z, SSTools.Position.top, SSTools.Time.oneSecond);
 
                 if (camera.ScreenToWorldPoint(screenPoint).y > 0.1)
                 {
