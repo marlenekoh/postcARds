@@ -18,8 +18,8 @@ public class JsonSerialization : MonoBehaviour
         {
             ItemObject item = new ItemObject();
             item.tag = child.gameObject.tag;
-            item.pos = child.gameObject.transform.position.ToString();
-            item.rot = gameObject.transform.rotation.ToString();
+            item.pos = child.gameObject.transform.localPosition.ToString();
+            item.rot = child.gameObject.transform.localRotation.ToString();
             item.scale = child.gameObject.transform.localScale.ToString();
 
             items.Add(item);
@@ -28,13 +28,12 @@ public class JsonSerialization : MonoBehaviour
         string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
         Debug.Log(itemsToJson);
 
-        StartCoroutine(PostRequest(itemsToJson));
+       StartCoroutine(PostRequest(itemsToJson));
     }
 
     IEnumerator PostRequest(string json)
     {
-        // TODO: Get ID from Session
-        string id_str = "912345678";
+        string id_str = Session.id;
         using (UnityWebRequest webRequest = UnityWebRequest.Put("https://valiant-postcard.herokuapp.com/submit?id=" + id_str, json))
         {
             webRequest.SetRequestHeader("Content-Type", "application/json");
@@ -68,7 +67,7 @@ public class JsonSerialization : MonoBehaviour
     private void Processjson(string jsonString)
     {
         JsonData jsonvale = JsonMapper.ToObject(jsonString);
-        bool uploadSuccess = (jsonvale["write_record"].ToString() == "true");
+        bool uploadSuccess = (jsonvale["write_record"].ToString().ToLower() == "true");
         
         if (!uploadSuccess)
         {
@@ -76,6 +75,8 @@ public class JsonSerialization : MonoBehaviour
         } else
         {
             Debug.Log("Upload success!");
+
+            Session.ResetSession();
         }
     }
 }

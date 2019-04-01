@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 3487212094875914961}
   m_Layer: 0
   m_Name: Shower
-  m_TagString: Furniture
+  m_TagString: Shower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

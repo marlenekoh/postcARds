@@ -9,6 +9,8 @@ TagManager:
   - PlacementIndicator
   - Furniture
   - Brush
+  - Shower
+  - Bed 1
   layers:
   - Default
   - TransparentFX

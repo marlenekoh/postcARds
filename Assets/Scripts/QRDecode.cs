@@ -30,6 +30,7 @@ public class QRDecode : MonoBehaviour
     public GameObject entryInvalidDialog;
 
     private JsonData jsonvale;
+    private string card_id;
 
     private void Start()
 	{
@@ -51,6 +52,7 @@ public class QRDecode : MonoBehaviour
         {
             if (int.TryParse(id_str, out id_int) && id_int >= 0)
             {
+                card_id = id_str;
                 this.UiText.text = id_str;
                 StartCoroutine(GetRequest("https://valiant-postcard.herokuapp.com/retrieve?id=" + id_str));
             } else
@@ -90,8 +92,10 @@ public class QRDecode : MonoBehaviour
 
     private void Processjson(string jsonString)
     {
+        Debug.Log(jsonString);
         jsonvale = JsonMapper.ToObject(jsonString);
-        bool hasRecord = (jsonvale["has_record"].ToString() == "true");
+
+        bool hasRecord = (jsonvale["has_record"].ToString().ToLower() == "true");
         DisplayDialog(hasRecord);
     }
 
@@ -189,7 +193,7 @@ public class QRDecode : MonoBehaviour
 
         if (jsonvale != null)
         {
-            Session.CreateSession(jsonvale);
+            Session.CreateSession(jsonvale, card_id);
         }
 
         //Application.LoadLevel(scenename);

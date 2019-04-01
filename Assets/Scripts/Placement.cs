@@ -16,7 +16,8 @@ public class Placement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SSTools.ShowMessage("Start", SSTools.Position.top, SSTools.Time.twoSecond);
+        //SSTools.ShowMessage("Start", SSTools.Position.top, SSTools.Time.twoSecond);
+        Debug.Log("Session ID: " + Session.id);
     }
 
     // Update is called once per frame

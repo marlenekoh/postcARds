@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Customization.unity
     guid: ff59e1a52da706c46b9776def5fd98e8
+  - enabled: 1
+    path: Assets/Scenes/Receiver.unity
+    guid: 2591be086dd18914c8617db4cd9536ae
   m_configObjects: {}
