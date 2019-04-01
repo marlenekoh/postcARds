@@ -6,7 +6,7 @@ using UnityEngine;
 using LitJson;
 
 
-public class Session : MonoBehaviour
+public static class Session
 {
     public class Object
     {
@@ -40,10 +40,9 @@ public class Session : MonoBehaviour
         }
     }
 
-    static public bool hasRecord = false;
-    static public string id = "";
-    static public List<Object> sceneObjects = new List<Object>();
-
+    public static bool hasRecord = false;
+    public static string id = "";
+    public static List<Object> sceneObjects = new List<Object>();
 
     public static void CreateSession(JsonData jsonvale)
     {

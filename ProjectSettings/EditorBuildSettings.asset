@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/QRScanner.unity
+    guid: ddab7cb20600748499e42af59a0e579a
+  - enabled: 1
     path: Assets/Scenes/Customization.unity
     guid: ff59e1a52da706c46b9776def5fd98e8
   m_configObjects: {}
