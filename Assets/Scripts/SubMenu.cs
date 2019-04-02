@@ -37,6 +37,7 @@ public class SubMenu : MonoBehaviour
             assetButtons[i] = createdButton.GetComponent<Button>();
 
             assetButtons[i].gameObject.name = assetPrefab[i].name;
+            createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
 
             assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>()));
@@ -73,9 +74,7 @@ public class SubMenu : MonoBehaviour
     {
         Reset();
         //furnitureButton.GetComponent<Image>().color = Color.grey;
-        GameObject objectToPlace = Resources.Load<GameObject>(menuName + "/" + furnitureButton.name);
-        objectToPlace.tag = objectToPlace.name;
-        interaction.SetObjectToPlace(objectToPlace);
+        interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
         interaction.PlaceObject();
     }
 

@@ -11,6 +11,13 @@ TagManager:
   - Brush
   - Shower
   - Bed 1
+  - Hamburger
+  - Cake
+  - HamEgg
+  - IceCream
+  - Donuts
+  - Milk
+  - Waffle
   layers:
   - Default
   - TransparentFX
