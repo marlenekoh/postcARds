@@ -9,7 +9,9 @@ using System.Text;
 public class JsonSerialization : MonoBehaviour
 {
     public GameObject objects;
-    
+    public GameObject uploadFailedPanel;
+    public GameObject uploadSuccessPanel;
+
     public void Submit()
     {
         List<ItemObject> items = new List<ItemObject>();
@@ -72,10 +74,11 @@ public class JsonSerialization : MonoBehaviour
         if (!uploadSuccess)
         {
             Debug.Log("Upload fail!");
+            uploadFailedPanel.SetActive(true);
         } else
         {
             Debug.Log("Upload success!");
-
+            uploadSuccessPanel.SetActive(true);
             Session.ResetSession();
         }
     }

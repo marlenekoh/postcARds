@@ -83,6 +83,5 @@ public static class Session
         hasRecord = false;
         id = "";
         sceneObjects = new List<SceneObject>();
-
     }
 }

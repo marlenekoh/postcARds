@@ -23,7 +23,7 @@ public class SubMenu : MonoBehaviour
         deleteAllButtons();
 
         // clear all selected buttons
-        Reset();
+        //Reset();
 
         GameObject[] assetPrefab = Resources.LoadAll<GameObject>(currMenu);
         assetButtons = new Button[assetPrefab.Length];
@@ -72,20 +72,20 @@ public class SubMenu : MonoBehaviour
 
     void SetActivePrefab(Button furnitureButton)
     {
-        Reset();
+        //Reset();
         //furnitureButton.GetComponent<Image>().color = Color.grey;
         interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
         interaction.PlaceObject();
     }
 
-    private void Reset()
-    {
-        if (assetButtons.Length > 0)
-        {
-            foreach (Button button in assetButtons)
-            {
-                //button.GetComponent<Image>().color = Color.white;
-            }
-        }
-    }
+    //private void Reset()
+    //{
+    //    if (assetButtons.Length > 0)
+    //    {
+    //        foreach (Button button in assetButtons)
+    //        {
+    //              button.GetComponent<Image>().color = Color.white;
+    //        }
+    //    }
+    //}
 }
