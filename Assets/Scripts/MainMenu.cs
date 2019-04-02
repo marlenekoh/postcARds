@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
         }
 
         RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(categoryButtonPrefab.GetComponent<RectTransform>().sizeDelta.x * categories.Length, rt.sizeDelta.y);
+        rt.sizeDelta = new Vector2(categoryButtonPrefab.GetComponent<RectTransform>().sizeDelta.x * categories.Length + 5.0f * (categories.Length - 1), rt.sizeDelta.y);
     }
 
     void SwitchMenu(Button button)

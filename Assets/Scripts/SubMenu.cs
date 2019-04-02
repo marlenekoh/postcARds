@@ -40,7 +40,11 @@ public class SubMenu : MonoBehaviour
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
 
             assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>()));
+
         }
+
+        RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length-1), rt.sizeDelta.y);
     }
 
     void deleteAllButtons()
@@ -69,7 +73,9 @@ public class SubMenu : MonoBehaviour
     {
         Reset();
         //furnitureButton.GetComponent<Image>().color = Color.grey;
-        interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
+        GameObject objectToPlace = Resources.Load<GameObject>(menuName + "/" + furnitureButton.name);
+        objectToPlace.tag = objectToPlace.name;
+        interaction.SetObjectToPlace(objectToPlace);
         interaction.PlaceObject();
     }
 
