@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using LitJson;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class JsonSerialization : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class JsonSerialization : MonoBehaviour
         string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
         Debug.Log(itemsToJson);
 
-       StartCoroutine(PostRequest(itemsToJson));
+        StartCoroutine(PostRequest(itemsToJson));
     }
 
     IEnumerator PostRequest(string json)
@@ -46,6 +47,7 @@ public class JsonSerialization : MonoBehaviour
             if (webRequest.isNetworkError || webRequest.isHttpError)
             {
                 Debug.Log(webRequest.error);
+                SubmitUI(false);
             }
             else
             {
@@ -70,16 +72,27 @@ public class JsonSerialization : MonoBehaviour
     {
         JsonData jsonvale = JsonMapper.ToObject(jsonString);
         bool uploadSuccess = (jsonvale["write_record"].ToString().ToLower() == "true");
-        
+
+        SubmitUI(uploadSuccess);
+    }
+
+    private void SubmitUI(bool uploadSuccess)
+    {
         if (!uploadSuccess)
         {
             Debug.Log("Upload fail!");
             uploadFailedPanel.SetActive(true);
-        } else
+        }
+        else
         {
             Debug.Log("Upload success!");
             uploadSuccessPanel.SetActive(true);
             Session.ResetSession();
         }
+    }
+
+    public void GotoNextScene(string scenename)
+    {
+        SceneManager.LoadScene(scenename);
     }
 }

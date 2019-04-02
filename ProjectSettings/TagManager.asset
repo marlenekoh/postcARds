@@ -18,6 +18,11 @@ TagManager:
   - Donuts
   - Milk
   - Waffle
+  - box1
+  - box2
+  - box3
+  - box4
+  - box5
   layers:
   - Default
   - TransparentFX
