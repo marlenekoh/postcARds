@@ -2643,8 +2643,8 @@ MonoBehaviour:
   Camera: {fileID: 0}
   MaxSelectables: 1
   Search: 1
-  Reselect: 3
-  AutoDeselect: 0
+  Reselect: 1
+  AutoDeselect: 1
 --- !u!114 &1567362858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2763,7 +2763,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1575340501
