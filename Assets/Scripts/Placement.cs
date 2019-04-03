@@ -134,6 +134,7 @@ public class Placement : MonoBehaviour
         {
             if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
             {
+                selectedObject = null;
                 Destroy(rayHit.transform.gameObject);
             }
         }
@@ -149,23 +150,20 @@ public class Placement : MonoBehaviour
             if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
             {
                 GameObject newSelectedObject = rayHit.collider.gameObject;
-                DeselectAllObjects();
-                if (selectedObject.Equals(newSelectedObject))
+                ResetShaders();
+                if (selectedObject != null && newSelectedObject != null && selectedObject.Equals(newSelectedObject))
                 {
                     selectedObject = null;
                 } else {
                     selectedObject = newSelectedObject;
                     Material m = selectedObject.GetComponent<Renderer>().material;
-                    m.shader = Shader.Find("SilhouetteDiffuse");
-                    m.SetColor("Main Color", Color.white);
-                    m.SetColor("Outline Color", Color.yellow);
-                    m.SetFloat("Outline width", 0.03f);
+                    m.shader = Shader.Find("Outlined/Uniform");
                 }
             }
         }
     }
 
-    public void DeselectAllObjects()
+    public void ResetShaders()
     {
         foreach (GameObject asset in assets)
         {

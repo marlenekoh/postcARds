@@ -1,10 +1,12 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Outlined/Silhouetted Diffuse" {
 	Properties{
-		_Color("Main Color", Color) = (.5,.5,.5,1)
+		_Color("Main Color", Color) = (1,1,1,1)
 		_OutlineColor("Outline Color", Color) = (0,0,0,1)
-		_Outline("Outline width", Range(0.0, 0.03)) = .005
+		_Outline("Outline width", Range(0.0, 10)) = 3
 		_MainTex("Base (RGB)", 2D) = "white" { }
 	}
 
@@ -108,6 +110,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 		CGPROGRAM
 		#pragma vertex vert
 		#pragma exclude_renderers gles xbox360 ps3
+		#pragma target 2.0
 		ENDCG
 		SetTexture[_MainTex] { combine primary }
 	}
