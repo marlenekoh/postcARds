@@ -12,6 +12,7 @@ public class JsonSerialization : MonoBehaviour
     public GameObject objects;
     public GameObject uploadFailedPanel;
     public GameObject uploadSuccessPanel;
+    public GameObject loadingPanel;
 
     public void Submit()
     {
@@ -36,6 +37,8 @@ public class JsonSerialization : MonoBehaviour
 
     IEnumerator PostRequest(string json)
     {
+        loadingPanel.SetActive(true);
+
         string id_str = Session.id;
         using (UnityWebRequest webRequest = UnityWebRequest.Put("https://valiant-postcard.herokuapp.com/submit?id=" + id_str, json))
         {
@@ -78,6 +81,8 @@ public class JsonSerialization : MonoBehaviour
 
     private void SubmitUI(bool uploadSuccess)
     {
+        loadingPanel.SetActive(false);
+
         if (!uploadSuccess)
         {
             Debug.Log("Upload fail!");

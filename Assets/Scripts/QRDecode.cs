@@ -28,6 +28,7 @@ public class QRDecode : MonoBehaviour
     public GameObject entryFoundDialog;
     public GameObject entryNotFoundDialog;
     public GameObject entryInvalidDialog;
+    public GameObject loadingPanel;
 
     private JsonData jsonvale;
     private string card_id;
@@ -74,6 +75,8 @@ public class QRDecode : MonoBehaviour
 
     IEnumerator GetRequest(string uri)
     {
+        loadingPanel.SetActive(true);
+
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             // Request and wait
@@ -101,6 +104,8 @@ public class QRDecode : MonoBehaviour
 
     private void DisplayDialog(bool hasRecord)
     {
+        loadingPanel.SetActive(false);
+
         if (hasRecord)
         {
             entryFoundDialog.SetActive(true);
