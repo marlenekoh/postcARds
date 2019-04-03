@@ -158,6 +158,7 @@ public class Placement : MonoBehaviour
                     selectedObject = newSelectedObject;
                     Material m = selectedObject.GetComponent<Renderer>().material;
                     m.shader = Shader.Find("Outlined/Uniform");
+                    m.SetColor("Outline color", Color.yellow);
                 }
             }
         }
