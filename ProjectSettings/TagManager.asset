@@ -23,6 +23,21 @@ TagManager:
   - box3
   - box4
   - box5
+  - Christmas Tree
+  - Falling Leaves
+  - Smoke
+  - Sleigh
+  - Confetti
+  - Sock
+  - Merry Christmas
+  - Snowman
+  - Pink Flowers
+  - Yellow Flowers
+  - Blue Flowers
+  - Butterfly
+  - Blue Sparkles
+  - Pink Sparkles
+  - Stand
   layers:
   - Default
   - TransparentFX

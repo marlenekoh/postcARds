@@ -21,7 +21,7 @@ public class ReceiverPlacement : MonoBehaviour
         foreach (System.Object prefab in prefabs)
         {
             GameObject prefabObj = prefab as GameObject;
-            //Debug.Log(prefabObj.name);
+            Debug.Log(prefabObj.name);
             allPrefabs.Add(prefabObj.name.ToString(), prefabObj);
         }
 
@@ -42,7 +42,7 @@ public class ReceiverPlacement : MonoBehaviour
             Quaternion rotation = new Quaternion(item.getRot()[0], item.getRot()[1], item.getRot()[2], item.getRot()[3]);
             Vector3 scale = new Vector3(item.getScale()[0], item.getScale()[1], item.getScale()[2]);
 
-            //Debug.Log(itemTag);
+            Debug.Log(itemTag);
             //Debug.Log(position);
             //Debug.Log(rotation);
             //Debug.Log(scale);
