@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public MenuManager menuManager;
     public string[] categories;
     public GameObject categoryButtonPrefab;
+    public Image background;
     private List<Button> menuButtons;
 
     // Start is called before the first frame update

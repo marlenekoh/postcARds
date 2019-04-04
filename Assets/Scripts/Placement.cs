@@ -156,9 +156,14 @@ public class Placement : MonoBehaviour
                     selectedObject = null;
                 } else {
                     selectedObject = newSelectedObject;
-                    Material m = selectedObject.GetComponent<Renderer>().material;
-                    m.shader = Shader.Find("Outlined/Uniform");
-                    m.SetColor("Outline color", Color.yellow);
+                    Renderer[] renderers = selectedObject.GetComponentsInChildren<Renderer>();
+                    foreach (Renderer renderer in renderers)
+                    {
+                        Material m = renderer.material;
+                        m.shader = Shader.Find("Outlined/Uniform");
+                        m.SetColor("_OutlineColor", Color.yellow);
+                        m.SetFloat("_OutlineWidth", 0.015f);
+                    }
                 }
             }
         }
@@ -168,7 +173,12 @@ public class Placement : MonoBehaviour
     {
         foreach (GameObject asset in assets)
         {
-            asset.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Texture");
+            Renderer[] renderers = asset.GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in renderers)
+            {
+                Material m = renderer.material;
+                m.shader = Shader.Find("Unlit/Texture");
+            }
         }
     }
 
