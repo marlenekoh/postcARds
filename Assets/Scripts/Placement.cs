@@ -106,25 +106,35 @@ public class Placement : MonoBehaviour
         RaycastHit rayHit;
 
         //SSTools.ShowMessage("Update Pose", SSTools.Position.top, SSTools.Time.oneSecond);
-        
-        if (Physics.Raycast(arCamera.ScreenPointToRay(screenCenter), out rayHit))
+        int mask = LayerMask.GetMask("Plane");
+        //Debug.Log("mask: " + mask);
+
+        RaycastHit[] hits = Physics.RaycastAll(arCamera.ScreenPointToRay(screenCenter), float.MaxValue);
+
+        if (hits.Length > 0)
+        //if (Physics.Raycast(arCamera.ScreenPointToRay(screenCenter), out rayHit))
         {
             //SSTools.ShowMessage("Raycast Hit", SSTools.Position.top, SSTools.Time.oneSecond);
-
-            if (rayHit.collider.gameObject.CompareTag("PlacementPlane"))
+            for (int i = 0; i < hits.Length; i++)
             {
-                //SSTools.ShowMessage("Compare Tag", SSTools.Position.top, SSTools.Time.oneSecond);
-                placementPoseIsValid = true;
+                if (hits[i].collider.gameObject.CompareTag("PlacementPlane"))
+                {
+                    Debug.Log("hit plane");
+                    //SSTools.ShowMessage("Compare Tag", SSTools.Position.top, SSTools.Time.oneSecond);
+                    placementPoseIsValid = true;
 
-                placementPose.position = rayHit.point;
+                    placementPose.position = hits[i].point;
 
-                //Vector3 cameraForward = arCamera.transform.forward;
-                //Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
-            }
-            else
-            {
-                placementPoseIsValid = false;
+                    break;
+
+                    //Vector3 cameraForward = arCamera.transform.forward;
+                    //Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+                    //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+                }
+                else
+                {
+                    placementPoseIsValid = false;
+                }
             }
         }
         else
@@ -150,31 +160,31 @@ public class Placement : MonoBehaviour
 
     public void SelectObject()
     {
-        Touch touch = Input.GetTouch(0);
-        RaycastHit rayHit;
+        //Touch touch = Input.GetTouch(0);
+        //RaycastHit rayHit;
 
-        if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
-        {
-            if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
-            {
-                GameObject newSelectedObject = rayHit.collider.gameObject;
-                ResetShaders();
-                if (selectedObject != null && newSelectedObject != null && selectedObject.Equals(newSelectedObject))
-                {
-                    selectedObject = null;
-                } else {
-                    selectedObject = newSelectedObject;
-                    Renderer[] renderers = selectedObject.GetComponentsInChildren<Renderer>();
-                    foreach (Renderer renderer in renderers)
-                    {
-                        Material m = renderer.material;
-                        m.shader = Shader.Find("Outlined/Uniform");
-                        m.SetColor("_OutlineColor", Color.yellow);
-                        m.SetFloat("_OutlineWidth", 0.015f);
-                    }
-                }
-            }
-        }
+        //if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
+        //{
+        //    if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
+        //    {
+        //        GameObject newSelectedObject = rayHit.collider.gameObject;
+        //        ResetShaders();
+        //        if (selectedObject != null && newSelectedObject != null && selectedObject.Equals(newSelectedObject))
+        //        {
+        //            selectedObject = null;
+        //        } else {
+        //            selectedObject = newSelectedObject;
+        //            Renderer[] renderers = selectedObject.GetComponentsInChildren<Renderer>();
+        //            foreach (Renderer renderer in renderers)
+        //            {
+        //                Material m = renderer.material;
+        //                m.shader = Shader.Find("Outlined/Uniform");
+        //                m.SetColor("_OutlineColor", Color.yellow);
+        //                m.SetFloat("_OutlineWidth", 0.015f);
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     public void ResetShaders()

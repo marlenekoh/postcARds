@@ -39,6 +39,7 @@ public class SubMenu : MonoBehaviour
             assetButtons[i].gameObject.name = assetPrefab[i].name;
             createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
+            assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
 
             assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>()));
 
