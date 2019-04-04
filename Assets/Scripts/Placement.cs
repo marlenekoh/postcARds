@@ -76,11 +76,17 @@ public class Placement : MonoBehaviour
         leanRotateCustomAxis.Axis = new Vector3(0, -1, 0);
         leanRotateCustomAxis.Space = Space.Self;
 
-        LeanTranslateVertical leanTranslateVertical = leantouchObject.AddComponent<LeanTranslateVertical>();
-        leanTranslateVertical.IgnoreStartedOverGui = true;
-        leanTranslateVertical.IgnoreIsOverGui = true;
-        leanTranslateVertical.RequiredFingerCount = 1;
-        leanTranslateVertical.RequiredSelectable = leanSelectable;
+        LeanTranslateY leanTranslateY = leantouchObject.AddComponent<LeanTranslateY>();
+        leanTranslateY.IgnoreStartedOverGui = true;
+        leanTranslateY.IgnoreIsOverGui = true;
+        leanTranslateY.RequiredFingerCount = 3;
+        leanTranslateY.RequiredSelectable = leanSelectable;
+
+        LeanTranslateXZ leanTranslateXZ = leantouchObject.AddComponent<LeanTranslateXZ>();
+        leanTranslateXZ.IgnoreStartedOverGui = true;
+        leanTranslateXZ.IgnoreIsOverGui = true;
+        leanTranslateXZ.RequiredFingerCount = 1;
+        leanTranslateXZ.RequiredSelectable = leanSelectable;
     }
 
     private void UpdatePlacementIndicator()
@@ -103,33 +109,24 @@ public class Placement : MonoBehaviour
     private void UpdatePlacementPose()
     {
         Vector3 screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        RaycastHit rayHit;
 
         //SSTools.ShowMessage("Update Pose", SSTools.Position.top, SSTools.Time.oneSecond);
-        int mask = LayerMask.GetMask("Plane");
-        //Debug.Log("mask: " + mask);
 
         RaycastHit[] hits = Physics.RaycastAll(arCamera.ScreenPointToRay(screenCenter), float.MaxValue);
 
         if (hits.Length > 0)
-        //if (Physics.Raycast(arCamera.ScreenPointToRay(screenCenter), out rayHit))
         {
             //SSTools.ShowMessage("Raycast Hit", SSTools.Position.top, SSTools.Time.oneSecond);
             for (int i = 0; i < hits.Length; i++)
             {
                 if (hits[i].collider.gameObject.CompareTag("PlacementPlane"))
                 {
-                    Debug.Log("hit plane");
+                    //Debug.Log("hit plane");
                     //SSTools.ShowMessage("Compare Tag", SSTools.Position.top, SSTools.Time.oneSecond);
                     placementPoseIsValid = true;
-
                     placementPose.position = hits[i].point;
 
                     break;
-
-                    //Vector3 cameraForward = arCamera.transform.forward;
-                    //Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                    //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
                 }
                 else
                 {

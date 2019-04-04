@@ -4,7 +4,7 @@ namespace Lean.Touch
 {
 	/// <summary>This script allows you to translate the current GameObject relative to the camera.</summary>
 	[HelpURL(LeanTouch.HelpUrlPrefix + "LeanTranslate")]
-	public class LeanTranslateVertical : MonoBehaviour
+	public class LeanTranslateXZ : MonoBehaviour
 	{
 		[Tooltip("Ignore fingers with StartedOverGui?")]
 		public bool IgnoreStartedOverGui = true;
@@ -43,8 +43,6 @@ namespace Lean.Touch
 
 			// Calculate the screenDelta value based on these fingers
 			var screenDelta = LeanGesture.GetScreenDelta(fingers);
-            // Ignore vertical movement
-            screenDelta.x = 0;
 
             if (screenDelta != Vector2.zero)
 			{
@@ -84,24 +82,16 @@ namespace Lean.Touch
 
 			if (camera != null)
 			{
-				// Screen position of the transform
-				var screenPoint = camera.WorldToScreenPoint(transform.position);
-
-				// Add the deltaPosition
-				screenPoint += (Vector3)screenDelta;
-
-                Vector3 worldPoint = camera.ScreenToWorldPoint(screenPoint);
-                string x = worldPoint.x.ToString();
-                string y = worldPoint.y.ToString();
-                string z = worldPoint.z.ToString();
-                //SSTools.ShowMessage(x + ", " + y + ", " + z, SSTools.Position.top, SSTools.Time.oneSecond);
-
-                if (camera.ScreenToWorldPoint(screenPoint).y > 0.1)
-                {
-                    // Convert back to world space
-                    transform.position = camera.ScreenToWorldPoint(screenPoint);
-                }
-			}
+                // Screen position of the transform
+                var screenPoint = camera.WorldToScreenPoint(transform.position);
+                
+                // Add the deltaPosition
+                screenPoint += (Vector3)screenDelta;
+                Debug.Log(screenPoint + ", " + transform.position);
+                // Convert back to world space
+                Vector3 worldPos = camera.ScreenToWorldPoint(screenPoint);
+                transform.position = new Vector3(worldPos.x, transform.position.y, worldPos.z);
+            }
 			else
 			{
 				Debug.LogError("Failed to find camera. Either tag your cameras MainCamera, or set one in this component.", this);
