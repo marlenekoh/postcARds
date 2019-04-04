@@ -122,6 +122,14 @@ public class Placement : MonoBehaviour
                 //Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
                 //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
             }
+            else
+            {
+                placementPoseIsValid = false;
+            }
+        }
+        else
+        {
+            placementPoseIsValid = false;
         }
     }
 
