@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using cakeslice;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -67,6 +68,8 @@ namespace Lean.Touch
 		[System.Serializable] public class LeanFingerEvent : UnityEvent<LeanFinger> {}
 
 		public static List<LeanSelectable> Instances = new List<LeanSelectable>();
+
+        public static Placement placement;
 
 		[Tooltip("Should this get deselected when the selecting finger goes up?")]
 		public bool DeselectOnUp;
@@ -135,7 +138,7 @@ namespace Lean.Touch
 		/// <summary>If you want to change this, do it via the Select/Deselect methods (accessible from the context menu gear icon in editor)</summary>
 		[Tooltip("If you want to change this, do it via the Select/Deselect methods (accessible from the context menu gear icon in editor)")]
 		[SerializeField]
-		private bool isSelected;
+		public bool isSelected;
 
 		// The fingers that were used to select this GameObject
 		// If a finger goes up then it will be removed from this list
@@ -301,9 +304,10 @@ namespace Lean.Touch
 		/// <summary>This selects the current object with the specified finger.</summary>
 		public void Select(LeanFinger finger)
 		{
-			isSelected = true;
+            isSelected = true;
+            enableOutlineScripts();
 
-			if (finger != null)
+            if (finger != null)
 			{
 				if (IsSelectedBy(finger) == false)
 				{
@@ -333,8 +337,9 @@ namespace Lean.Touch
 			if (isSelected == true)
 			{
 				isSelected = false;
+                disableOutlineScripts();
 
-				for (var i = selectingFingers.Count - 1; i >= 0; i--)
+                for (var i = selectingFingers.Count - 1; i >= 0; i--)
 				{
 					var selectingFinger = selectingFingers[i];
 
@@ -351,7 +356,7 @@ namespace Lean.Touch
 					OnDeselect.Invoke();
 				}
 			}
-		}
+        }
 
 		/// <summary>This deselects all objects in the scene.</summary>
 		public static void DeselectAll()
@@ -406,7 +411,8 @@ namespace Lean.Touch
 				{
 					if (selectable.OnSelectSet != null)
 					{
-						selectable.OnSelectSet.Invoke(finger);
+                        selectable.OnSelectSet.Invoke(finger);
+
 					}
 				}
 			}
@@ -443,5 +449,30 @@ namespace Lean.Touch
 				}
 			}
 		}
-	}
+
+        public void setPlacement(Placement placementSingleton)
+        {
+            placement = placementSingleton;
+        }
+
+        private void enableOutlineScripts()
+        {
+            Outline[] outlines = gameObject.GetComponentsInChildren<Outline>();
+            foreach (Outline outline in outlines)
+            {
+                Debug.Log("yppppppppppp");
+                outline.enabled = true;
+            }
+        }
+
+        private void disableOutlineScripts()
+        {
+            Outline[] outlines = gameObject.GetComponentsInChildren<Outline>();
+            foreach (Outline outline in outlines)
+            {
+                Debug.Log("gggggggggggg");
+                outline.enabled = false;
+            }
+        }
+    }
 }

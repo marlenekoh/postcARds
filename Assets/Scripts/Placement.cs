@@ -1,19 +1,23 @@
-﻿using Lean.Touch;
+﻿using cakeslice;
+using Lean.Touch;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Placement : MonoBehaviour
 {
+    private static Placement placementSingleton;
     public GameObject placementIndicator;
     public GameObject objectToPlace;
     public Camera arCamera;
     public GameObject objects;
+    public bool debug;
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
     private List<GameObject> assets = new List<GameObject>();
     private GameObject selectedObject;
+    private Material[] originalMaterials;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +25,20 @@ public class Placement : MonoBehaviour
         //SSTools.ShowMessage("Start", SSTools.Position.top, SSTools.Time.twoSecond);
         Debug.Log("Session ID: " + Session.id);
         selectedObject = null;
+        if (placementSingleton == null)
+        {
+            placementSingleton = this;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdatePlacementPose();
+        if (debug)
+        {
+            placementPoseIsValid = true;
+        }
         UpdatePlacementIndicator();
 
         //foreach (Transform child in objects.transform)
@@ -52,6 +64,7 @@ public class Placement : MonoBehaviour
             newObject.transform.parent = objects.transform;
             assets.Add(newObject);
             setUpLeanTouchScripts(newObject);
+            setUpOutlineScripts(newObject);
         }
     }
 
@@ -61,6 +74,8 @@ public class Placement : MonoBehaviour
         leanSelectable.DeselectOnUp = false;
         leanSelectable.HideWithFinger = false;
         leanSelectable.IsolateSelectingFingers = false;
+        leanSelectable.setPlacement(placementSingleton);
+
 
         LeanScale leanScale = leantouchObject.AddComponent<LeanScale>();
         leanScale.IgnoreStartedOverGui = true;
@@ -149,52 +164,62 @@ public class Placement : MonoBehaviour
         {
             if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
             {
+                assets.Remove(selectedObject);
                 selectedObject = null;
                 Destroy(rayHit.transform.gameObject);
             }
         }
     }
 
-    public void SelectObject()
-    {
-        //Touch touch = Input.GetTouch(0);
-        //RaycastHit rayHit;
+    //public void SelectObject(GameObject gameObject)
+    //{
+    //    if (selectedObject == null || !selectedObject.Equals(gameObject))
+    //    {
+    //        selectedObject = gameObject;
+    //        enableOutlineScripts(selectedObject);
+    //    }
+    //}
 
-        //if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
-        //{
-        //    if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
-        //    {
-        //        GameObject newSelectedObject = rayHit.collider.gameObject;
-        //        ResetShaders();
-        //        if (selectedObject != null && newSelectedObject != null && selectedObject.Equals(newSelectedObject))
-        //        {
-        //            selectedObject = null;
-        //        } else {
-        //            selectedObject = newSelectedObject;
-        //            Renderer[] renderers = selectedObject.GetComponentsInChildren<Renderer>();
-        //            foreach (Renderer renderer in renderers)
-        //            {
-        //                Material m = renderer.material;
-        //                m.shader = Shader.Find("Outlined/Uniform");
-        //                m.SetColor("_OutlineColor", Color.yellow);
-        //                m.SetFloat("_OutlineWidth", 0.015f);
-        //            }
-        //        }
-        //    }
-        //}
+
+    //public void DeselectObject(GameObject gameObject)
+    //{
+    //    if (selectedObject != null && selectedObject.Equals(gameObject))
+    //    {
+    //        selectedObject = null;
+    //        disableOutlineScripts(gameObject);
+    //    }
+    //}
+
+
+    //public void enableOutlineScripts(GameObject outlineObject)
+    //{
+    //    selectedObject = outlineObject;
+    //    Outline[] outlines = outlineObject.GetComponentsInChildren<Outline>();
+    //    foreach (Outline outline in outlines)
+    //    {
+    //        Debug.Log("yppppppppppp");
+    //        outline.enabled = true;
+    //    }
+    //}
+
+    private void disableOutlineScripts(GameObject outlineObject)
+    {
+        Outline[] outlines = outlineObject.GetComponentsInChildren<Outline>();
+        foreach (Outline outline in outlines)
+        {
+            Debug.Log("gggggggggggg");
+            outline.enabled = false;
+        }
     }
 
-    public void ResetShaders()
+    public void setUpOutlineScripts(GameObject outlineObject)
     {
-        foreach (GameObject asset in assets)
+        outlineObject.AddComponent<Outline>();
+        foreach (Transform t in outlineObject.transform)
         {
-            Renderer[] renderers = asset.GetComponentsInChildren<Renderer>();
-            foreach (Renderer renderer in renderers)
-            {
-                Material m = renderer.material;
-                m.shader = Shader.Find("Unlit/Texture");
-            }
+            t.gameObject.AddComponent<Outline>();
         }
+        disableOutlineScripts(outlineObject);
     }
 
     public void Reset()
