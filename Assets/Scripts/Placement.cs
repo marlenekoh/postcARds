@@ -235,7 +235,7 @@ public class Placement : MonoBehaviour
         outlineObject.AddComponent<Outline>();
         foreach (Transform t in outlineObject.GetComponentsInChildren<Transform>())
         {
-            if (t.gameObject.GetComponent<Renderer>() != null && t.gameObject.GetComponent<Outline>() != null)
+            if (t.gameObject.GetComponent<Renderer>() != null)
             {
                 t.gameObject.AddComponent<Outline>();
             }
