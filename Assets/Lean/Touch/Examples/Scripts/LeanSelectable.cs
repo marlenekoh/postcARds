@@ -69,8 +69,6 @@ namespace Lean.Touch
 
 		public static List<LeanSelectable> Instances = new List<LeanSelectable>();
 
-        public static Placement placement;
-
 		[Tooltip("Should this get deselected when the selecting finger goes up?")]
 		public bool DeselectOnUp;
 
@@ -79,6 +77,8 @@ namespace Lean.Touch
 
 		[Tooltip("If the selecting fingers are still active, only return those to RequiredSelectable queries?")]
 		public bool IsolateSelectingFingers;
+
+        public Placement placement;
 
 		/// <summary>Returns isSelected, or false if HideWithFinger is true and SelectingFinger is still set.</summary>
 		public bool IsSelected
@@ -306,6 +306,8 @@ namespace Lean.Touch
 		{
             isSelected = true;
             enableOutlineScripts();
+            placement.deleteButton.SetActive(true);
+            placement.selectedObject = gameObject;
 
             if (finger != null)
 			{
@@ -338,6 +340,8 @@ namespace Lean.Touch
 			{
 				isSelected = false;
                 disableOutlineScripts();
+                placement.deleteButton.SetActive(false);
+                placement.selectedObject = null;
 
                 for (var i = selectingFingers.Count - 1; i >= 0; i--)
 				{
@@ -450,17 +454,11 @@ namespace Lean.Touch
 			}
 		}
 
-        public void setPlacement(Placement placementSingleton)
-        {
-            placement = placementSingleton;
-        }
-
-        private void enableOutlineScripts()
+        public void enableOutlineScripts()
         {
             Outline[] outlines = gameObject.GetComponentsInChildren<Outline>();
             foreach (Outline outline in outlines)
             {
-                Debug.Log("yppppppppppp");
                 outline.enabled = true;
             }
         }
@@ -470,7 +468,6 @@ namespace Lean.Touch
             Outline[] outlines = gameObject.GetComponentsInChildren<Outline>();
             foreach (Outline outline in outlines)
             {
-                Debug.Log("gggggggggggg");
                 outline.enabled = false;
             }
         }

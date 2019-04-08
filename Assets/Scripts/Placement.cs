@@ -12,11 +12,12 @@ public class Placement : MonoBehaviour
     public Camera arCamera;
     public GameObject objects;
     public bool debug;
+    public GameObject deleteButton;
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
     private List<GameObject> assets = new List<GameObject>();
-    private GameObject selectedObject;
+    public GameObject selectedObject;
     private Material[] originalMaterials;
 
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class Placement : MonoBehaviour
         {
             placementSingleton = this;
         }
+        deleteButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -74,8 +76,7 @@ public class Placement : MonoBehaviour
         leanSelectable.DeselectOnUp = false;
         leanSelectable.HideWithFinger = false;
         leanSelectable.IsolateSelectingFingers = false;
-        leanSelectable.setPlacement(placementSingleton);
-
+        leanSelectable.placement = placementSingleton;
 
         LeanScale leanScale = leantouchObject.AddComponent<LeanScale>();
         leanScale.IgnoreStartedOverGui = true;
@@ -157,36 +158,54 @@ public class Placement : MonoBehaviour
 
     public void RemoveObject()
     {
-        Touch touch = Input.GetTouch(0);
-        RaycastHit rayHit;
-
-        if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
-        {
-            if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
-            {
-                assets.Remove(selectedObject);
-                selectedObject = null;
-                Destroy(rayHit.transform.gameObject);
-            }
-        }
+        assets.Remove(selectedObject);
+        Destroy(selectedObject);
+        selectedObject = null;
     }
 
-    //public void SelectObject(GameObject gameObject)
+    //public void SelectObject()
     //{
-    //    if (selectedObject == null || !selectedObject.Equals(gameObject))
+    //    if (Input.touchCount > 0)
     //    {
-    //        selectedObject = gameObject;
-    //        enableOutlineScripts(selectedObject);
+    //        Touch touch = Input.GetTouch(0);
+    //        RaycastHit rayHit;
+
+    //        if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
+    //        {
+    //            if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
+    //            {
+    //                deleteButton.SetActive(true);
+    //                GameObject newSelectedObject = rayHit.collider.gameObject;
+    //                if (selectedObject == null || !selectedObject.Equals(newSelectedObject))
+    //                {
+    //                    selectedObject = newSelectedObject;
+    //                    enableOutlineScripts(selectedObject);
+    //                }
+    //            }
+    //        }
     //    }
     //}
 
 
-    //public void DeselectObject(GameObject gameObject)
+    //public void DeselectObject()
     //{
-    //    if (selectedObject != null && selectedObject.Equals(gameObject))
+    //    if (Input.touchCount > 0)
     //    {
-    //        selectedObject = null;
-    //        disableOutlineScripts(gameObject);
+    //        Touch touch = Input.GetTouch(0);
+    //        RaycastHit rayHit;
+
+    //        if (Physics.Raycast(arCamera.ScreenPointToRay(touch.position), out rayHit))
+    //        {
+    //            if (!rayHit.collider.gameObject.CompareTag("PlacementPlane") && !rayHit.collider.gameObject.CompareTag("PlacementIndicator"))
+    //            {
+    //                GameObject deselectedObject = rayHit.collider.gameObject;
+    //                if (selectedObject != null && selectedObject.Equals(deselectedObject))
+    //                {
+    //                    selectedObject = null;
+    //                    disableOutlineScripts(deselectedObject);
+    //                }
+    //            }
+    //        }
     //    }
     //}
 
@@ -207,7 +226,6 @@ public class Placement : MonoBehaviour
         Outline[] outlines = outlineObject.GetComponentsInChildren<Outline>();
         foreach (Outline outline in outlines)
         {
-            Debug.Log("gggggggggggg");
             outline.enabled = false;
         }
     }
@@ -215,9 +233,12 @@ public class Placement : MonoBehaviour
     public void setUpOutlineScripts(GameObject outlineObject)
     {
         outlineObject.AddComponent<Outline>();
-        foreach (Transform t in outlineObject.transform)
+        foreach (Transform t in outlineObject.GetComponentsInChildren<Transform>())
         {
-            t.gameObject.AddComponent<Outline>();
+            if (t.gameObject.GetComponent<Renderer>() != null && t.gameObject.GetComponent<Outline>() != null)
+            {
+                t.gameObject.AddComponent<Outline>();
+            }
         }
         disableOutlineScripts(outlineObject);
     }

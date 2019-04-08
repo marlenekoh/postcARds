@@ -1,5 +1,7 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 /*
 //  Copyright (c) 2015 José Guerreiro. All rights reserved.
 //
@@ -24,7 +26,7 @@
 //  THE SOFTWARE.
 */
 
-Shader "Hidden/OutlineEffect" 
+Shader "Outlined/OutlineEffect" 
 {
 	Properties 
 	{

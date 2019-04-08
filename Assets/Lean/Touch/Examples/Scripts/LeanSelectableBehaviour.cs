@@ -23,8 +23,7 @@ namespace Lean.Touch
 
 		protected virtual void OnEnable()
 		{
-			UpdateSelectable();
-
+            UpdateSelectable();
 			// Hook LeanSelectable events
 			selectable.OnSelect.AddListener(OnSelect);
 			selectable.OnSelectUp.AddListener(OnSelectUp);
@@ -58,9 +57,9 @@ namespace Lean.Touch
 
 		private void UpdateSelectable()
 		{
-			if (selectable == null)
+            if (selectable == null)
 			{
-				selectable = GetComponentInParent<LeanSelectable>();
+				selectable = gameObject.GetComponent<LeanSelectable>();
 
 				if (selectable == null)
 				{

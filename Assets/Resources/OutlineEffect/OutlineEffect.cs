@@ -83,8 +83,8 @@ namespace cakeslice
         Material outline2Material;
         Material outline3Material;
         Material outlineEraseMaterial;
-        Shader outlineShader;
-        Shader outlineBufferShader;
+        Shader outlineShader = null;
+        Shader outlineBufferShader = null;
         [HideInInspector]
         public Material outlineShaderMaterial;
         [HideInInspector]
@@ -275,12 +275,16 @@ namespace cakeslice
         private void CreateMaterialsIfNeeded()
         {
             if(outlineShader == null)
-                outlineShader = Resources.Load<Shader>("OutlineShader");
-            if(outlineBufferShader == null)
             {
-                outlineBufferShader = Resources.Load<Shader>("OutlineBufferShader");
+                //outlineShader = Resources.Load<Shader>("OutlineEffect/Resources/OutlineShader");
+                outlineShader = Shader.Find("Outlined/OutlineEffect");
             }
-            if(outlineShaderMaterial == null)
+            if (outlineBufferShader == null)
+            {
+                //outlineBufferShader = Resources.Load<Shader>("OutlineEffect/Resources/OutlineBufferShader");
+                outlineBufferShader = Shader.Find("Outlined/OutlineBufferEffect");
+            }
+            if (outlineShaderMaterial == null)
             {
                 outlineShaderMaterial = new Material(outlineShader);
                 outlineShaderMaterial.hideFlags = HideFlags.HideAndDontSave;

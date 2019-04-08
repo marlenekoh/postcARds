@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 */
 
-Shader "Hidden/OutlineBufferEffect" {
+Shader "Outlined/OutlineBufferEffect" {
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
