@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/QRScanner.unity
+    guid: ddab7cb20600748499e42af59a0e579a
+  - enabled: 1
+    path: Assets/Scenes/Customization.unity
+    guid: ff59e1a52da706c46b9776def5fd98e8
+  - enabled: 1
+    path: Assets/Scenes/Receiver.unity
+    guid: 2591be086dd18914c8617db4cd9536ae
   m_configObjects: {}

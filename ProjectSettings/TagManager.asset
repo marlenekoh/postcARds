@@ -4,8 +4,40 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Furniture
+  - PlacementPlane
   - FurnitureButton
+  - PlacementIndicator
+  - Furniture
+  - Brush
+  - Shower
+  - Bed 1
+  - Hamburger
+  - Cake
+  - HamEgg
+  - IceCream
+  - Donuts
+  - Milk
+  - Waffle
+  - box1
+  - box2
+  - box3
+  - box4
+  - box5
+  - Christmas Tree
+  - Falling Leaves
+  - Smoke
+  - Sleigh
+  - Confetti
+  - Sock
+  - Merry Christmas
+  - Snowman
+  - Pink Flowers
+  - Yellow Flowers
+  - Blue Flowers
+  - Butterfly
+  - Blue Sparkles
+  - Pink Sparkles
+  - Stand
   layers:
   - Default
   - TransparentFX
@@ -16,7 +48,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - Plane
   - 
   - 
   - 

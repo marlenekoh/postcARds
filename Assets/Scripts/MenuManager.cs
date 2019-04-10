@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public string currMenu;
     public GameObject[] menus; // 0 - Main menu, 1 - Sub menu. Order is important
+    public GameObject categoryButton;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,7 @@ public class MenuManager : MonoBehaviour
     {
         Reset();
         menus[0].SetActive(true);
+        categoryButton.SetActive(false);
     }
 
     public void SubMenu(string menu)
@@ -25,6 +28,7 @@ public class MenuManager : MonoBehaviour
         currMenu = menu;
         menus[1].SetActive(true);
         menus[1].GetComponent<SubMenu>().init(currMenu);
+        categoryButton.SetActive(true);
     }
 
     private void Reset()

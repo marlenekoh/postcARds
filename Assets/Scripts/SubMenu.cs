@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SubMenu : MonoBehaviour
 {
     public MenuManager menuManager;
-    public ARTapToPlaceObject interaction;
+    public Placement interaction;
     public GameObject buttonPrefab;
     private string menuName;
 
@@ -23,7 +23,7 @@ public class SubMenu : MonoBehaviour
         deleteAllButtons();
 
         // clear all selected buttons
-        Reset();
+        //Reset();
 
         GameObject[] assetPrefab = Resources.LoadAll<GameObject>(currMenu);
         assetButtons = new Button[assetPrefab.Length];
@@ -37,10 +37,16 @@ public class SubMenu : MonoBehaviour
             assetButtons[i] = createdButton.GetComponent<Button>();
 
             assetButtons[i].gameObject.name = assetPrefab[i].name;
+            createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
+            assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
 
             assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>()));
+
         }
+
+        RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length-1), rt.sizeDelta.y);
     }
 
     void deleteAllButtons()
@@ -67,20 +73,20 @@ public class SubMenu : MonoBehaviour
 
     void SetActivePrefab(Button furnitureButton)
     {
-        Reset();
+        //Reset();
         //furnitureButton.GetComponent<Image>().color = Color.grey;
         interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
         interaction.PlaceObject();
     }
 
-    private void Reset()
-    {
-        if (assetButtons.Length > 0)
-        {
-            foreach (Button button in assetButtons)
-            {
-                //button.GetComponent<Image>().color = Color.white;
-            }
-        }
-    }
+    //private void Reset()
+    //{
+    //    if (assetButtons.Length > 0)
+    //    {
+    //        foreach (Button button in assetButtons)
+    //        {
+    //              button.GetComponent<Image>().color = Color.white;
+    //        }
+    //    }
+    //}
 }

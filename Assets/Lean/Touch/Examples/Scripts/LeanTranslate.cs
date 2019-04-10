@@ -44,7 +44,7 @@ namespace Lean.Touch
 			// Calculate the screenDelta value based on these fingers
 			var screenDelta = LeanGesture.GetScreenDelta(fingers);
 
-			if (screenDelta != Vector2.zero)
+            if (screenDelta != Vector2.zero)
 			{
 				// Perform the translation
 				if (transform is RectTransform)
