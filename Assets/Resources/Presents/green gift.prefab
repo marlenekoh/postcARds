@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 478692}
   - component: {fileID: 3673188211764823818}
   m_Layer: 0
-  m_Name: box3
-  m_TagString: box3
+  m_Name: Green Gift
+  m_TagString: Green Gift
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

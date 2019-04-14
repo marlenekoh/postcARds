@@ -18,11 +18,6 @@ TagManager:
   - Donuts
   - Milk
   - Waffle
-  - box1
-  - box2
-  - box3
-  - box4
-  - box5
   - Christmas Tree
   - Falling Leaves
   - Smoke
@@ -37,7 +32,9 @@ TagManager:
   - Butterfly
   - Blue Sparkles
   - Pink Sparkles
-  - Stand
+  - Blue Gift
+  - Green Gift
+  - White Gift
   layers:
   - Default
   - TransparentFX

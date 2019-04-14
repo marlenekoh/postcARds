@@ -22,9 +22,12 @@ public class JsonSerialization : MonoBehaviour
         {
             ItemObject item = new ItemObject();
             item.tag = child.gameObject.tag;
-            item.pos = child.gameObject.transform.localPosition.ToString();
-            item.rot = child.gameObject.transform.localRotation.ToString();
-            item.scale = child.gameObject.transform.localScale.ToString();
+            item.pos = "(" + child.gameObject.transform.localPosition.x.ToString("f3") + ", " + child.gameObject.transform.localPosition.y.ToString("f3") + ", " +
+                        child.gameObject.transform.localPosition.z.ToString("f3") + ")";
+            item.rot = "(" + child.gameObject.transform.localRotation.x.ToString("f3") + ", " + child.gameObject.transform.localRotation.y.ToString("f3") + ", " +
+                        child.gameObject.transform.localRotation.z.ToString("f3") + ", " + child.gameObject.transform.localRotation.w.ToString("f3") + ")";
+            item.scale = "(" + child.gameObject.transform.localScale.x.ToString("f3") + ", " + child.gameObject.transform.localScale.y.ToString("f3") + ", " +
+                        child.gameObject.transform.localScale.z.ToString("f3") + ")";
 
             items.Add(item);
         }
@@ -32,7 +35,7 @@ public class JsonSerialization : MonoBehaviour
         string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
         Debug.Log(itemsToJson);
 
-        StartCoroutine(PostRequest(itemsToJson));
+        //StartCoroutine(PostRequest(itemsToJson));
     }
 
     IEnumerator PostRequest(string json)

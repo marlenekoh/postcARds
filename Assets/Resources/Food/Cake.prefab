@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7349138099454808474}
   m_Layer: 0
   m_Name: Cake
-  m_TagString: Donuts
+  m_TagString: Cake
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
