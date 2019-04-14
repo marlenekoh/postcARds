@@ -10,9 +10,11 @@ public class Placement : MonoBehaviour
     public GameObject placementIndicator;
     public GameObject objectToPlace;
     public Camera arCamera;
-    public GameObject objects;
+    public GameObject santaObjects;
+    public GameObject rudolphObjects;
     public bool debug;
     public GameObject deleteButton;
+    public string cardName;
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
@@ -36,6 +38,7 @@ public class Placement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cardName = Card.GetCardName();
         UpdatePlacementPose();
         if (debug)
         {
@@ -63,7 +66,16 @@ public class Placement : MonoBehaviour
         {
             //var newObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation * objectToPlace.transform.rotation);
             GameObject newObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
-            newObject.transform.parent = objects.transform;
+            if (cardName.Equals("rudolf"))
+            {
+                //Debug.Log("add to rudolf objects");
+                newObject.transform.parent = rudolphObjects.transform;
+            } else if (cardName.Equals("santa"))
+            {
+                //Debug.Log("add to santa objects");
+                newObject.transform.parent = santaObjects.transform;
+            }
+            
             assets.Add(newObject);
             setUpLeanTouchScripts(newObject);
             setUpOutlineScripts(newObject);

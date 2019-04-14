@@ -43,6 +43,7 @@ public static class Session
     public static bool hasRecord = false;
     public static string id = "";
     public static List<SceneObject> sceneObjects = new List<SceneObject>();
+    public static string cardType = "";
 
     public static void CreateSession(JsonData jsonvale, string card_id)
     {
