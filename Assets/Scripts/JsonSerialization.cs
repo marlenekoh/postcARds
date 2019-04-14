@@ -35,7 +35,7 @@ public class JsonSerialization : MonoBehaviour
         string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
         Debug.Log(itemsToJson);
 
-        //StartCoroutine(PostRequest(itemsToJson));
+        StartCoroutine(PostRequest(itemsToJson));
     }
 
     IEnumerator PostRequest(string json)
