@@ -9,13 +9,25 @@ using UnityEngine.SceneManagement;
 
 public class JsonSerialization : MonoBehaviour
 {
-    public GameObject objects;
+    public GameObject rudolphObjects;
+    public GameObject santaObjects;
     public GameObject uploadFailedPanel;
     public GameObject uploadSuccessPanel;
     public GameObject loadingPanel;
 
     public void Submit()
     {
+        string cardName = Session.cardName;
+        GameObject objects = rudolphObjects; // default
+
+        if (cardName == "rudolph")
+        {
+            objects = rudolphObjects;
+        } else if (cardName == "santa")
+        {
+            objects = santaObjects;
+        }
+
         List<ItemObject> items = new List<ItemObject>();
 
         foreach (Transform child in objects.transform)
@@ -31,11 +43,19 @@ public class JsonSerialization : MonoBehaviour
 
             items.Add(item);
         }
-        //Convert to Jason
-        string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
-        Debug.Log(itemsToJson);
 
-        StartCoroutine(PostRequest(itemsToJson));
+        //Convert to Jason
+        CardType card = new CardType();
+        card.name = Session.cardName;
+        string cardToJson = JsonUtility.ToJson(card);
+        cardToJson = cardToJson.Substring(0, cardToJson.Length - 1) + ",";
+        string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
+        itemsToJson = itemsToJson.Substring(1);
+        string combinedJson = cardToJson + itemsToJson;
+
+        Debug.Log(combinedJson);
+
+        StartCoroutine(PostRequest(combinedJson));
     }
 
     IEnumerator PostRequest(string json)
@@ -101,6 +121,7 @@ public class JsonSerialization : MonoBehaviour
 
     public void GotoNextScene(string scenename)
     {
+        Session.ResetSession();
         SceneManager.LoadScene(scenename);
     }
 }

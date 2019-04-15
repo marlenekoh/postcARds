@@ -14,13 +14,13 @@ public class Placement : MonoBehaviour
     public GameObject rudolphObjects;
     public bool debug;
     public GameObject deleteButton;
-    public string cardName;
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
     private List<GameObject> assets = new List<GameObject>();
     public GameObject selectedObject;
     private Material[] originalMaterials;
+    private GameObject objects;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,12 @@ public class Placement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cardName = Card.GetCardName();
+        if (Card.name != "" && Session.cardName == "") // only set once (first image detected)
+        {
+            Session.cardName = Card.name;
+            Debug.Log("set card name:  " + Session.cardName);
+            //SSTools.ShowMessage("Card is: " + Session.cardName, SSTools.Position.top, SSTools.Time.twoSecond);
+        }
         UpdatePlacementPose();
         if (debug)
         {
@@ -65,20 +70,26 @@ public class Placement : MonoBehaviour
         if (placementPoseIsValid)
         {
             //var newObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation * objectToPlace.transform.rotation);
-            GameObject newObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
-            if (cardName.Equals("rudolf"))
-            {
-                //Debug.Log("add to rudolf objects");
-                newObject.transform.parent = rudolphObjects.transform;
-            } else if (cardName.Equals("santa"))
-            {
-                //Debug.Log("add to santa objects");
-                newObject.transform.parent = santaObjects.transform;
-            }
             
-            assets.Add(newObject);
-            setUpLeanTouchScripts(newObject);
-            setUpOutlineScripts(newObject);
+            if (Card.name == Session.cardName)
+            {
+                GameObject newObject = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+
+                if (Session.cardName == "rudolph")
+                {
+                    //Debug.Log("add to rudolf objects");
+                    newObject.transform.parent = rudolphObjects.transform;
+                }
+                else
+                {
+                    //Debug.Log("add to santa objects");
+                    newObject.transform.parent = santaObjects.transform;
+                }
+                //newObject.transform.parent = objects.transform;
+                assets.Add(newObject);
+                setUpLeanTouchScripts(newObject);
+                setUpOutlineScripts(newObject);
+            }
         }
     }
 

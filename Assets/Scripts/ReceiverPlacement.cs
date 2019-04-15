@@ -8,9 +8,11 @@ using static Session;
 
 public class ReceiverPlacement : MonoBehaviour
 {
-    public GameObject objects;
+    public GameObject santaObjects;
+    public GameObject rudolphObjects;
 
     private Dictionary<string, GameObject> allPrefabs = new Dictionary<string, GameObject>();
+    private GameObject objects;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,7 @@ public class ReceiverPlacement : MonoBehaviour
         foreach (System.Object prefab in prefabs)
         {
             GameObject prefabObj = prefab as GameObject;
-            Debug.Log(prefabObj.name);
+            //Debug.Log(prefabObj.name);
             allPrefabs.Add(prefabObj.name.ToString(), prefabObj);
         }
 
@@ -30,6 +32,15 @@ public class ReceiverPlacement : MonoBehaviour
     
     private void SetObjects()
     {
+        Debug.Log("card is : " + Session.cardName);
+        if (Session.cardName == "rudolph")
+        {
+            objects = rudolphObjects;
+        } else
+        {
+            objects = santaObjects;
+        }
+
         List<SceneObject> allObjects = new List<SceneObject>();
         allObjects = Session.sceneObjects;
 

@@ -61,7 +61,6 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
         {
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
             Card.name = mTrackableBehaviour.TrackableName;
-
             OnTrackingFound();
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
@@ -129,10 +128,6 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
 public static class Card
 {
-    public static string name;
-
-    public static string GetCardName()
-    {
-        return name;
-    }
+    public static string name = "";
+    
 }

@@ -11,3 +11,9 @@ public class ItemObject
     public string rot;
     public string scale;
 }
+
+[Serializable]
+public class CardType
+{
+    public string name;
+}
