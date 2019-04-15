@@ -33,7 +33,11 @@ public class JsonSerialization : MonoBehaviour
         foreach (Transform child in objects.transform)
         {
             ItemObject item = new ItemObject();
-            item.tag = child.gameObject.tag;
+            // remove '(Clone)'
+            string name = child.gameObject.name;
+            name = name.Substring(0, name.IndexOf('('));
+            item.tag = name;
+
             item.pos = "(" + child.gameObject.transform.localPosition.x.ToString("f3") + ", " + child.gameObject.transform.localPosition.y.ToString("f3") + ", " +
                         child.gameObject.transform.localPosition.z.ToString("f3") + ")";
             item.rot = "(" + child.gameObject.transform.localRotation.x.ToString("f3") + ", " + child.gameObject.transform.localRotation.y.ToString("f3") + ", " +
