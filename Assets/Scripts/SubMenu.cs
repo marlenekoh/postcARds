@@ -37,7 +37,15 @@ public class SubMenu : MonoBehaviour
             assetButtons[i] = createdButton.GetComponent<Button>();
 
             assetButtons[i].gameObject.name = assetPrefab[i].name;
-            createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+            createdButton.GetComponentInChildren<Image>().sprite = null; // Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+
+            // instantiate gameobject for SS
+            GameObject newObject = Instantiate(assetPrefab[i], createdButton.transform);
+            changeToUiLayer(newObject); // UI Layer
+            Vector3 scale = newObject.transform.localScale;
+            scale = scale * 100;
+            newObject.transform.localScale = scale;
+
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
             assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
 
@@ -77,6 +85,19 @@ public class SubMenu : MonoBehaviour
         //furnitureButton.GetComponent<Image>().color = Color.grey;
         interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
         interaction.PlaceObject();
+    }
+
+    void changeToUiLayer(GameObject obj)
+    {
+        foreach(Transform child in obj.GetComponentsInChildren<Transform>())
+        {
+            child.gameObject.layer = 5;
+            Animation anim = child.gameObject.GetComponent<Animation>();
+            if (anim != null)
+            {
+                anim.Stop(); // to Update
+            }
+        }
     }
 
     //private void Reset()
