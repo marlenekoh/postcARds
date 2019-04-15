@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3662861783701419443}
-  - component: {fileID: 3662861783701419442}
   m_Layer: 0
   m_Name: Christmas Tree
   m_TagString: Christmas Tree
@@ -32,19 +31,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3662861783701419442
+--- !u!65 &687481384660723167
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3662861783701419437}
+  m_GameObject: {fileID: 3662861784331641618}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3916324, y: 3.025004, z: 1.8891139}
-  m_Center: {x: 0.0065589547, y: 1.3023102, z: 0.017793417}
+  m_Size: {x: 0.031288505, y: 0.032898676, z: 0.053508572}
+  m_Center: {x: 0.0000000011920924, y: -2.5249375e-16, z: 0.0267908}
 --- !u!1001 &3662861784331839978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,18 +101,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 499416, guid: cb8a994b910fa884b84b5d1b5d595858, type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 499416, guid: cb8a994b910fa884b84b5d1b5d595858, type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 499416, guid: cb8a994b910fa884b84b5d1b5d595858, type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb8a994b910fa884b84b5d1b5d595858, type: 3}
+--- !u!1 &3662861784331641618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 199416, guid: cb8a994b910fa884b84b5d1b5d595858,
+    type: 3}
+  m_PrefabInstance: {fileID: 3662861784331839978}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3662861784331876146 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 499416, guid: cb8a994b910fa884b84b5d1b5d595858,
