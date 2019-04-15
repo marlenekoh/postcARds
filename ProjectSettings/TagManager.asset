@@ -35,6 +35,16 @@ TagManager:
   - Blue Gift
   - Green Gift
   - White Gift
+  - Hot Dog Truck
+  - standing_lamp1
+  - standing_lamp2
+  - standing_lamp3
+  - standing_lamp4
+  - wall_lamp1
+  - Fir_Tree
+  - Oak_Tree
+  - Palm_Tree
+  - Poplar_Tree
   layers:
   - Default
   - TransparentFX
