@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 using UnityEngine.UI;
@@ -22,9 +23,20 @@ public class MainMenu : MonoBehaviour
         {
             GameObject createdButton = Instantiate(categoryButtonPrefab, transform);
             createdButton.GetComponentInChildren<Text>().text = categories[i];
+            GameObject[] assets = Resources.LoadAll<GameObject>(categories[i]);
+            Texture2D assetPreview = AssetPreview.GetAssetPreview(assets[0]);
+            while (assetPreview == null)
+            {
+                assetPreview = AssetPreview.GetAssetPreview(assets[0]);
+                System.Threading.Thread.Sleep(10);
+            }
+            Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+            Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+            createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
             createdButton.name = categories[i];
             Button button = createdButton.GetComponent<Button>();
             menuButtons.Add(button);
+
             button.onClick.AddListener(() => SwitchMenu(button));
         }
 
@@ -35,5 +47,23 @@ public class MainMenu : MonoBehaviour
     void SwitchMenu(Button button)
     {
         menuManager.SubMenu(button.name);
+    }
+
+    private void GenerateSprites()
+    {
+        foreach (string currMenu in categories)
+        {
+            GameObject[] assetPrefab = Resources.LoadAll<GameObject>(currMenu);
+            for (int i = 0; i < assetPrefab.Length; i++)
+            {
+                Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+                while (assetPreview == null)
+                {
+                    assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+                    System.Threading.Thread.Sleep(10);
+                }
+            }
+        }
+
     }
 }
