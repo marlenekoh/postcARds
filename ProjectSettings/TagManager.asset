@@ -45,6 +45,7 @@ TagManager:
   - Oak_Tree
   - Palm_Tree
   - Poplar_Tree
+  - 3DButton
   layers:
   - Default
   - TransparentFX
