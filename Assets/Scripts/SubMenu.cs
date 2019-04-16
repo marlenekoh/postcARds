@@ -10,8 +10,42 @@ public class SubMenu : MonoBehaviour
     public Placement interaction;
     public GameObject buttonPrefab;
     private string menuName;
+    private float originalWidth;
 
     private Button[] assetButtons = new Button[0];
+
+    private void Start()
+    {
+        if (Session.cardName == "rudolph")
+        {
+            interaction = GameObject.Find("RudolphTarget").GetComponentInChildren<Placement>();
+        } else
+        {
+            interaction = GameObject.Find("SantaTarget").GetComponentInChildren<Placement>();
+        }
+        RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
+        originalWidth = rt.sizeDelta.x;
+    }
+
+    private void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            RaycastHit rayHit;
+
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(touch.position), out rayHit))
+            {
+                GameObject hitObject = rayHit.collider.gameObject;
+                Debug.Log(hitObject.name);
+                if (hitObject.CompareTag("3DButton"))
+                {
+                    Debug.Log("HELLLLLLLLLLLLLLLLLO");
+                    SetActivePrefab(hitObject.transform.parent.GetComponent<Button>());
+                }
+            }
+        }
+    }
 
     public void init(string currMenu)
     {
@@ -55,7 +89,7 @@ public class SubMenu : MonoBehaviour
         }
 
         RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length-1), rt.sizeDelta.y);
+        rt.sizeDelta = new Vector2(Math.Max(originalWidth, buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length-1)), rt.sizeDelta.y);
     }
 
     private void updateTransform(GameObject newObject)
