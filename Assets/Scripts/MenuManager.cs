@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public string currMenu;
     public GameObject[] menus; // 0 - Main menu, 1 - Sub menu. Order is important
-    public GameObject categoryButton;
+    public GameObject backButton;
 
     // Start is called before the first frame update
     void Start()
@@ -18,24 +18,24 @@ public class MenuManager : MonoBehaviour
     public void MainMenu()
     {
         Reset();
-        menus[0].SetActive(true);
-        categoryButton.SetActive(false);
+        menus[0].transform.parent.gameObject.SetActive(true);
+        backButton.SetActive(false);
     }
 
     public void SubMenu(string menu)
     {
         Reset();
         currMenu = menu;
-        menus[1].SetActive(true);
+        menus[1].transform.parent.gameObject.SetActive(true);
         menus[1].GetComponentInChildren<SubMenu>().init(currMenu);
-        categoryButton.SetActive(true);
+        backButton.SetActive(true);
     }
 
     private void Reset()
     {
         foreach (GameObject menu in menus)
         {
-            menu.SetActive(false);
+            menu.transform.parent.gameObject.SetActive(false);
         }
         currMenu = "Main";
     }

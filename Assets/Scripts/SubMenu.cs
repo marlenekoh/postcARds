@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-
 using UnityEngine.UI;
 
 public class SubMenu : MonoBehaviour
@@ -10,6 +8,7 @@ public class SubMenu : MonoBehaviour
     public MenuManager menuManager;
     public Placement interaction;
     public GameObject buttonPrefab;
+    public Camera uicamera;
     private string menuName;
     private float originalWidth;
 
@@ -20,14 +19,15 @@ public class SubMenu : MonoBehaviour
         if (Session.cardName == "rudolph")
         {
             interaction = GameObject.Find("RudolphTarget").GetComponentInChildren<Placement>();
-        } else
+        }
+        else
         {
             interaction = GameObject.Find("SantaTarget").GetComponentInChildren<Placement>();
         }
         RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
         originalWidth = rt.sizeDelta.x;
     }
-    
+
 
     public void init(string currMenu)
     {
@@ -81,26 +81,24 @@ public class SubMenu : MonoBehaviour
 
                 assetButtons[i].gameObject.name = assetPrefab[i].name;
                 //createdButton.GetComponentInChildren<Image>().enabled = false;
-                //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
-                Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-                while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
-                {
-                    assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-                    System.Threading.Thread.Sleep(10);
-                }
-                Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-                Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-                createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
+                createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+                //Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+                //while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
+                //{
+                //    assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+                //    System.Threading.Thread.Sleep(10);
+                //}
+                //Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+                //Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+                //createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
 
                 assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
                 assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
-                
+
                 assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>(), currMenu));
 
             }
 
-            //RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
-            //rt.sizeDelta = new Vector2(Math.Max(originalWidth, buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length - 1)), rt.sizeDelta.y);
         }
     }
 
@@ -112,16 +110,16 @@ public class SubMenu : MonoBehaviour
 
         assetButtons[i].gameObject.name = assetPrefab[i].name;
         //createdButton.GetComponentInChildren<Image>().enabled = false;
-        //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
-        Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-        while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
-        {
-            assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-            System.Threading.Thread.Sleep(10);
-        }
-        Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-        Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-        createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
+        createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+        //Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+        //while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
+        //{
+        //    assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+        //    System.Threading.Thread.Sleep(10);
+        //}
+        //Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+        //Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+        //createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
 
         assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
         assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
@@ -169,7 +167,7 @@ public class SubMenu : MonoBehaviour
 
     void changeToUiLayer(GameObject obj)
     {
-        foreach(Transform child in obj.GetComponentsInChildren<Transform>())
+        foreach (Transform child in obj.GetComponentsInChildren<Transform>())
         {
             child.gameObject.layer = 5;
             Animation anim = child.gameObject.GetComponent<Animation>();
