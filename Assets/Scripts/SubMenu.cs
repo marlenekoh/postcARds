@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
@@ -37,14 +38,14 @@ public class SubMenu : MonoBehaviour
             assetButtons[i] = createdButton.GetComponent<Button>();
 
             assetButtons[i].gameObject.name = assetPrefab[i].name;
-            createdButton.GetComponentInChildren<Image>().sprite = null; // Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+            createdButton.GetComponentInChildren<Image>().enabled = false;
+            //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
 
             // instantiate gameobject for SS
             GameObject newObject = Instantiate(assetPrefab[i], createdButton.transform);
             changeToUiLayer(newObject); // UI Layer
-            Vector3 scale = newObject.transform.localScale;
-            scale = scale * 100;
-            newObject.transform.localScale = scale;
+            updateTransform(newObject);
+            
 
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
             assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
@@ -55,6 +56,22 @@ public class SubMenu : MonoBehaviour
 
         RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length-1), rt.sizeDelta.y);
+    }
+
+    private void updateTransform(GameObject newObject)
+    {
+        switch(menuName)
+        {
+            case "Food":
+            default: // TO UPDATE
+                Vector3 scale = newObject.transform.localScale;
+                scale = scale * 80;
+                newObject.transform.localScale = scale;
+                Vector3 pos = newObject.transform.position;
+                pos = new Vector3(pos.x + 40.0f, pos.y + 15.0f, pos.z);
+                newObject.transform.position = pos;
+                break;
+        }
     }
 
     void deleteAllButtons()
