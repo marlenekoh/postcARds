@@ -72,14 +72,14 @@ public class SubMenu : MonoBehaviour
             assetButtons[i] = createdButton.GetComponent<Button>();
 
             assetButtons[i].gameObject.name = assetPrefab[i].name;
-            createdButton.GetComponentInChildren<Image>().enabled = false;
-            //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+            //createdButton.GetComponentInChildren<Image>().enabled = false;
+            createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
 
             // instantiate gameobject for SS
-            GameObject newObject = Instantiate(assetPrefab[i], createdButton.transform);
-            newObject.tag = "3DButton";
-            changeToUiLayer(newObject); // UI Layer
-            updateTransform(newObject);
+            //GameObject newObject = Instantiate(assetPrefab[i], createdButton.transform);
+            //newObject.tag = "3DButton";
+            //changeToUiLayer(newObject); // UI Layer
+            //updateTransform(newObject);
 
             assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
             assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
