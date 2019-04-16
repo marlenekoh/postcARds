@@ -53,9 +53,15 @@ public class JsonSerialization : MonoBehaviour
         card.name = Session.cardName;
         string cardToJson = JsonUtility.ToJson(card);
         cardToJson = cardToJson.Substring(0, cardToJson.Length - 1) + ",";
+
+        Music musicClip = new Music();
+        musicClip.music = Session.music;
+        string musicToJson = JsonUtility.ToJson(musicClip);
+        musicToJson = musicToJson.Substring(1, musicToJson.Length - 2) + ",";
+
         string itemsToJson = JsonHelper.ToJson(items.ToArray(), true);
         itemsToJson = itemsToJson.Substring(1);
-        string combinedJson = cardToJson + itemsToJson;
+        string combinedJson = cardToJson + musicToJson + itemsToJson;
 
         Debug.Log(combinedJson);
 
@@ -128,4 +134,9 @@ public class JsonSerialization : MonoBehaviour
         Session.ResetSession();
         SceneManager.LoadScene(scenename);
     }
+}
+
+public class Music
+{
+    public string music;
 }
