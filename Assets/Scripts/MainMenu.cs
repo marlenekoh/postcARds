@@ -40,8 +40,8 @@ public class MainMenu : MonoBehaviour
             button.onClick.AddListener(() => SwitchMenu(button));
         }
 
-        RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(categoryButtonPrefab.GetComponent<RectTransform>().sizeDelta.x * categories.Length + 5.0f * (categories.Length - 1), rt.sizeDelta.y);
+        //RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
+        //rt.sizeDelta = new Vector2(categoryButtonPrefab.GetComponent<RectTransform>().sizeDelta.x * categories.Length + 5.0f * (categories.Length - 1), rt.sizeDelta.y);
     }
 
     void SwitchMenu(Button button)

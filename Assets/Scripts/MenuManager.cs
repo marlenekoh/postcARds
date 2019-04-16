@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour
         Reset();
         currMenu = menu;
         menus[1].SetActive(true);
-        menus[1].GetComponent<SubMenu>().init(currMenu);
+        menus[1].GetComponentInChildren<SubMenu>().init(currMenu);
         categoryButton.SetActive(true);
     }
 
