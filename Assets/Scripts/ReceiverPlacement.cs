@@ -10,6 +10,7 @@ public class ReceiverPlacement : MonoBehaviour
 {
     public GameObject santaObjects;
     public GameObject rudolphObjects;
+    public GameObject christmasMusic;
 
     private Dictionary<string, GameObject> allPrefabs = new Dictionary<string, GameObject>();
     private GameObject objects;
@@ -28,6 +29,20 @@ public class ReceiverPlacement : MonoBehaviour
         }
 
         SetObjects();
+
+        if (Session.music != "None")
+        {
+            AudioSource[] music = christmasMusic.GetComponents<AudioSource>();
+            for (int i = 0; i < music.Length; i++)
+            {
+                if (music[i].clip.name == Session.music)
+                {
+                    music[i].Play();
+                }
+                //Debug.Log(music[i].clip.name);
+                //allMusic.Add(music[i].clip.name, music[i]);
+            }
+        }
     }
     
     private void SetObjects()

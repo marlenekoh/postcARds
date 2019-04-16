@@ -27,26 +27,7 @@ public class SubMenu : MonoBehaviour
         RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
         originalWidth = rt.sizeDelta.x;
     }
-
-    private void Update()
-    {
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            RaycastHit rayHit;
-
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(touch.position), out rayHit))
-            {
-                GameObject hitObject = rayHit.collider.gameObject;
-                Debug.Log(hitObject.name);
-                if (hitObject.CompareTag("3DButton"))
-                {
-                    Debug.Log("HELLLLLLLLLLLLLLLLLO");
-                    SetActivePrefab(hitObject.transform.parent.GetComponent<Button>());
-                }
-            }
-        }
-    }
+    
 
     public void init(string currMenu)
     {
@@ -61,39 +42,91 @@ public class SubMenu : MonoBehaviour
         // clear all selected buttons
         //Reset();
 
-        GameObject[] assetPrefab = Resources.LoadAll<GameObject>(currMenu);
-        assetButtons = new Button[assetPrefab.Length];
-
-        // replace text with name of furniture prefab in Resources folder
-        for (int i = 0; i < assetPrefab.Length; i++)
+        if (currMenu == "Music")
         {
+            AudioClip[] assetPrefab = Resources.LoadAll<AudioClip>(currMenu);
+            assetButtons = new Button[assetPrefab.Length];
 
-            // instantiate a new button based on prefabs loaded from Resources folder
-            GameObject createdButton = Instantiate(buttonPrefab, transform);
-            assetButtons[i] = createdButton.GetComponent<Button>();
-
-            assetButtons[i].gameObject.name = assetPrefab[i].name;
-            //createdButton.GetComponentInChildren<Image>().enabled = false;
-            //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
-            Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-            while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
+            for (int i = 0; i < assetPrefab.Length; i++)
             {
-                assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-                System.Threading.Thread.Sleep(10);
+                if (assetPrefab[i].name == "None") // set for none first
+                {
+                    setMusic(assetPrefab, i, currMenu);
+                }
             }
-            Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-            Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-            createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
 
-            assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
-            assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
-
-            assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>()));
-
+            // replace text with name of furniture prefab in Resources folder
+            for (int i = 0; i < assetPrefab.Length; i++)
+            {
+                if (assetPrefab[i].name == "None") // set for none first
+                {
+                    continue;
+                }
+                setMusic(assetPrefab, i, currMenu);
+            }
         }
+        else
+        {
+            GameObject[] assetPrefab = Resources.LoadAll<GameObject>(currMenu);
+            assetButtons = new Button[assetPrefab.Length];
 
-        //RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
-        //rt.sizeDelta = new Vector2(Math.Max(originalWidth, buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length-1)), rt.sizeDelta.y);
+
+            // replace text with name of furniture prefab in Resources folder
+            for (int i = 0; i < assetPrefab.Length; i++)
+            {
+
+                // instantiate a new button based on prefabs loaded from Resources folder
+                GameObject createdButton = Instantiate(buttonPrefab, transform);
+                assetButtons[i] = createdButton.GetComponent<Button>();
+
+                assetButtons[i].gameObject.name = assetPrefab[i].name;
+                //createdButton.GetComponentInChildren<Image>().enabled = false;
+                //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+                Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+                while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
+                {
+                    assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+                    System.Threading.Thread.Sleep(10);
+                }
+                Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+                Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+                createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
+
+                assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
+                assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
+                
+                assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>(), currMenu));
+
+            }
+
+            //RectTransform rt = gameObject.transform.parent.GetComponent<RectTransform>();
+            //rt.sizeDelta = new Vector2(Math.Max(originalWidth, buttonPrefab.GetComponent<RectTransform>().sizeDelta.x * assetPrefab.Length + 5.0f * (assetPrefab.Length - 1)), rt.sizeDelta.y);
+        }
+    }
+
+    void setMusic(AudioClip[] assetPrefab, int i, string currMenu)
+    {
+        // instantiate a new button based on prefabs loaded from Resources folder
+        GameObject createdButton = Instantiate(buttonPrefab, transform);
+        assetButtons[i] = createdButton.GetComponent<Button>();
+
+        assetButtons[i].gameObject.name = assetPrefab[i].name;
+        //createdButton.GetComponentInChildren<Image>().enabled = false;
+        //createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+        Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+        while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
+        {
+            assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
+            System.Threading.Thread.Sleep(10);
+        }
+        Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+        Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+        createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
+
+        assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
+        assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
+
+        assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>(), currMenu));
     }
 
     void deleteAllButtons()
@@ -118,12 +151,20 @@ public class SubMenu : MonoBehaviour
         }
     }
 
-    void SetActivePrefab(Button furnitureButton)
+    void SetActivePrefab(Button furnitureButton, string currMenu)
     {
         //Reset();
         //furnitureButton.GetComponent<Image>().color = Color.grey;
-        interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
-        interaction.PlaceObject();
+
+        if (currMenu == "Music")
+        {
+            interaction.PlayMusic(furnitureButton.name);
+        }
+        else
+        {
+            interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
+            interaction.PlaceObject();
+        }
     }
 
     void changeToUiLayer(GameObject obj)

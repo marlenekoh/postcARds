@@ -14,6 +14,7 @@ public class Placement : MonoBehaviour
     public GameObject rudolphObjects;
     public bool debug;
     public GameObject deleteButton;
+    public GameObject christmasMusic;
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
@@ -21,6 +22,8 @@ public class Placement : MonoBehaviour
     public GameObject selectedObject;
     private Material[] originalMaterials;
     private GameObject objects;
+    private AudioSource[] music;
+    private Dictionary<string, AudioSource> allMusic = new Dictionary<string, AudioSource>();
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,13 @@ public class Placement : MonoBehaviour
             placementSingleton = this;
         }
         deleteButton.SetActive(false);
+
+        music = christmasMusic.GetComponents<AudioSource>();
+        for (int i = 0; i < music.Length; i++)
+        {
+            //Debug.Log(music[i].clip.name);
+            allMusic.Add(music[i].clip.name, music[i]);
+        }
     }
 
     // Update is called once per frame
@@ -187,6 +197,23 @@ public class Placement : MonoBehaviour
         assets.Remove(selectedObject);
         Destroy(selectedObject);
         selectedObject = null;
+    }
+
+    public void PlayMusic(string musicToPlay)
+    {
+        // set music in session
+        Session.music = musicToPlay;
+
+        // stop all music
+        for (int i = 0; i < music.Length; i++)
+        {
+            music[i].Stop();
+        }
+        if (musicToPlay != "None")
+        {
+            Debug.Log("Music Playing: " + musicToPlay);
+            allMusic[musicToPlay].Play();
+        }
     }
 
     //public void SelectObject()

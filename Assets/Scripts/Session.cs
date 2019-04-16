@@ -44,6 +44,7 @@ public static class Session
     public static string id = "";
     public static List<SceneObject> sceneObjects = new List<SceneObject>();
     public static string cardName = "";
+    public static string music = "None";
 
     public static void CreateSession(JsonData jsonvale, string card_id)
     {
@@ -51,6 +52,7 @@ public static class Session
         id = card_id;
         cardName = ""; // for session
         Card.name = ""; // in trackable
+        music = "None";
         //id = jsonvale["id"].ToString();
 
         if (hasRecord)
@@ -58,6 +60,7 @@ public static class Session
             JsonData jsonSceneData = JsonMapper.ToObject(jsonvale["scene_data"].ToString());
 
             cardName = jsonSceneData["name"].ToString();
+            music = jsonSceneData["music"].ToString();
 
             for (int i = 0; i < jsonSceneData["Objects"].Count; i++)
             {
@@ -90,5 +93,6 @@ public static class Session
         sceneObjects = new List<SceneObject>();
         cardName = ""; // for session
         Card.name = ""; // in trackable
+        music = "None";
     }
 }

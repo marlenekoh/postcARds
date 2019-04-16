@@ -23,16 +23,16 @@ public class MainMenu : MonoBehaviour
         {
             GameObject createdButton = Instantiate(categoryButtonPrefab, transform);
             createdButton.GetComponentInChildren<Text>().text = categories[i];
-            GameObject[] assets = Resources.LoadAll<GameObject>(categories[i]);
-            Texture2D assetPreview = AssetPreview.GetAssetPreview(assets[0]);
-            while (assetPreview == null)
-            {
-                assetPreview = AssetPreview.GetAssetPreview(assets[0]);
-                System.Threading.Thread.Sleep(10);
-            }
-            Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-            Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-            createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
+            //GameObject[] assets = Resources.LoadAll<GameObject>(categories[i]);
+            //Texture2D assetPreview = AssetPreview.GetAssetPreview(assets[0]);
+            //while (assetPreview == null)
+            //{
+            //    assetPreview = AssetPreview.GetAssetPreview(assets[0]);
+            //    System.Threading.Thread.Sleep(10);
+            //}
+            //Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+            //Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+            //createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
             createdButton.name = categories[i];
             Button button = createdButton.GetComponent<Button>();
             menuButtons.Add(button);
