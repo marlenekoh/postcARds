@@ -89,6 +89,8 @@ public class Placement : MonoBehaviour
                 assets.Add(newObject);
                 setUpLeanTouchScripts(newObject);
                 setUpOutlineScripts(newObject);
+                deleteButton.SetActive(true);
+                selectedObject = newObject;
             }
         }
     }
@@ -100,6 +102,7 @@ public class Placement : MonoBehaviour
         leanSelectable.HideWithFinger = false;
         leanSelectable.IsolateSelectingFingers = false;
         leanSelectable.placement = placementSingleton;
+        leanSelectable.isSelected = true;
 
         LeanScale leanScale = leantouchObject.AddComponent<LeanScale>();
         leanScale.IgnoreStartedOverGui = true;
@@ -263,7 +266,6 @@ public class Placement : MonoBehaviour
                 t.gameObject.AddComponent<Outline>();
             }
         }
-        disableOutlineScripts(outlineObject);
     }
 
     public void Reset()
