@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
             if (sprites.Length > 0)
             {
                 createdButton.GetComponentInChildren<Image>().sprite = sprites[0];
+                createdButton.GetComponentInChildren<Image>().color = Color.white;
             }
 
             button.onClick.AddListener(() => SwitchMenu(button));

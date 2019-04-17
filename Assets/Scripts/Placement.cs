@@ -3,6 +3,7 @@ using Lean.Touch;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 public class Placement : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Placement : MonoBehaviour
     public bool debug;
     public GameObject deleteButton;
     public GameObject christmasMusic;
+    public GameObject subMenu;
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
@@ -309,5 +311,15 @@ public class Placement : MonoBehaviour
         }
 
         assets = new List<GameObject>();
+
+        // stop all music
+        for (int i = 0; i < music.Length; i++)
+        {
+            music[i].Stop();
+        }
+        Session.music = "None";
+
+        subMenu.GetComponent<SubMenu>().unselectMusic();
+
     }
 }

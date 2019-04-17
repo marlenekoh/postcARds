@@ -9,6 +9,8 @@ public class SubMenu : MonoBehaviour
     public Placement interaction;
     public GameObject buttonPrefab;
     public Camera uicamera;
+    public GameObject selectedMusic = null;
+    private GameObject noneMusic;
     private string menuName;
     private float originalWidth;
 
@@ -93,14 +95,30 @@ public class SubMenu : MonoBehaviour
 
     void setMusic(AudioClip[] assetPrefab, int i, string currMenu, bool isNone)
     {
-        // instantiate a new button based on prefabs loaded from Resources folder
+        // instantiate a new button based on p,refabs loaded from Resources folder
         GameObject createdButton = Instantiate(buttonPrefab, transform);
 
         string path = "Music/music";
         if (isNone)
         {
             path = "Music/none";
+            noneMusic = createdButton;
         }
+        
+        if (assetPrefab[i].name == Session.music)
+        {
+            createdButton.GetComponent<Button>().GetComponentInChildren<Image>().color = Color.gray;
+            selectedMusic = createdButton;
+        }
+        else
+        {
+            createdButton.GetComponent<Button>().GetComponentInChildren<Image>().color = Color.white;
+        }
+
+        //if (selectedMusic != null)
+        //{
+        //    selectedMusic.GetComponent<Button>().GetComponentInChildren<Image>().color = Color.gray;
+        //}
 
         createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(path);
 
@@ -108,9 +126,9 @@ public class SubMenu : MonoBehaviour
         assetButtons[i].gameObject.name = assetPrefab[i].name;
         assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
         assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
-
         assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>(), currMenu));
         Debug.Log(createdButton.name);
+
     }
 
     void deleteAllButtons()
@@ -143,12 +161,37 @@ public class SubMenu : MonoBehaviour
         if (currMenu == "Music")
         {
             interaction.PlayMusic(furnitureButton.name);
+            noneMusic.GetComponentInChildren<Image>().color = Color.white;
+            selectedMusic.GetComponentInChildren<Image>().color = Color.white;
+            if (furnitureButton.name.Equals(Session.music))
+            {
+                selectedMusic = furnitureButton.gameObject;
+                selectedMusic.GetComponentInChildren<Image>().color = Color.gray;
+            } 
+
+
+            //if (selectedMusic != null)
+            //{
+            //    selectedMusic.GetComponentInChildren<Image>().color = Color.white;
+            //}
+            //selectedMusic = furnitureButton.gameObject;
+            //selectedMusic.GetComponentInChildren<Image>().color = Color.gray;
+
         }
         else
         {
             interaction.SetObjectToPlace(Resources.Load<GameObject>(menuName + "/" + furnitureButton.name));
             interaction.PlaceObject();
         }
+    }
+
+    public void unselectMusic()
+    {
+        if (selectedMusic != null)
+        {
+            selectedMusic.GetComponentInChildren<Image>().color = Color.white;
+        }
+        noneMusic.GetComponentInChildren<Image>().color = Color.gray;
     }
 
     void changeToUiLayer(GameObject obj)
