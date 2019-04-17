@@ -100,6 +100,12 @@ public class Placement : MonoBehaviour
                 setUpLeanTouchScripts(newObject);
                 setUpOutlineScripts(newObject);
                 deleteButton.SetActive(true);
+                if (selectedObject != null)
+                {
+                    LeanSelectable ls = selectedObject.GetComponent<LeanSelectable>();
+                    ls.isSelected = false;
+                    disableOutlineScripts(selectedObject);
+                }
                 selectedObject = newObject;
             }
         }
