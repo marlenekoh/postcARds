@@ -51,7 +51,7 @@ public class SubMenu : MonoBehaviour
             {
                 if (assetPrefab[i].name == "None") // set for none first
                 {
-                    setMusic(assetPrefab, i, currMenu);
+                    setMusic(assetPrefab, i, currMenu, true);
                 }
             }
 
@@ -62,7 +62,7 @@ public class SubMenu : MonoBehaviour
                 {
                     continue;
                 }
-                setMusic(assetPrefab, i, currMenu);
+                setMusic(assetPrefab, i, currMenu, false);
             }
         }
         else
@@ -77,14 +77,11 @@ public class SubMenu : MonoBehaviour
 
                 // instantiate a new button based on prefabs loaded from Resources folder
                 GameObject createdButton = Instantiate(buttonPrefab, transform);
+
+                createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
+
                 assetButtons[i] = createdButton.GetComponent<Button>();
-
                 assetButtons[i].gameObject.name = assetPrefab[i].name;
-                Texture2D assetPreview = Resources.Load<Texture2D>(currMenu + "/" + createdButton.name);
-                Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-                Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-                createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
-
                 assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
                 assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
 
@@ -95,22 +92,26 @@ public class SubMenu : MonoBehaviour
         }
     }
 
-    void setMusic(AudioClip[] assetPrefab, int i, string currMenu)
+    void setMusic(AudioClip[] assetPrefab, int i, string currMenu, bool isNone)
     {
         // instantiate a new button based on prefabs loaded from Resources folder
         GameObject createdButton = Instantiate(buttonPrefab, transform);
+
+        string path = "Music/music";
+        if (isNone)
+        {
+            path = "Music/none";
+        }
+
+        createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(path);
+
         assetButtons[i] = createdButton.GetComponent<Button>();
-
         assetButtons[i].gameObject.name = assetPrefab[i].name;
-        Texture2D assetPreview = Resources.Load<Texture2D>(currMenu + "/" + createdButton.name);
-        Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-        Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-        createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
-
         assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
         assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
 
         assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>(), currMenu));
+        Debug.Log(createdButton.name);
     }
 
     void deleteAllButtons()

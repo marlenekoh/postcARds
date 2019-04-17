@@ -110,6 +110,7 @@ MonoBehaviour:
   DeselectOnUp: 0
   HideWithFinger: 0
   IsolateSelectingFingers: 0
+  placement: {fileID: 0}
   OnSelect:
     m_PersistentCalls:
       m_Calls: []
