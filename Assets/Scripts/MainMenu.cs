@@ -26,6 +26,12 @@ public class MainMenu : MonoBehaviour
             Button button = createdButton.GetComponent<Button>();
             menuButtons.Add(button);
 
+            Sprite[] sprites = Resources.LoadAll<Sprite>(categories[i]);
+            if (sprites.Length > 0)
+            {
+                createdButton.GetComponentInChildren<Image>().sprite = sprites[0];
+            }
+
             button.onClick.AddListener(() => SwitchMenu(button));
         }
 
