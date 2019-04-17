@@ -74,16 +74,15 @@ public class SubMenu : MonoBehaviour
             // replace text with name of furniture prefab in Resources folder
             for (int i = 0; i < assetPrefab.Length; i++)
             {
-
                 // instantiate a new button based on prefabs loaded from Resources folder
                 GameObject createdButton = Instantiate(buttonPrefab, transform);
-
-                createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
 
                 assetButtons[i] = createdButton.GetComponent<Button>();
                 assetButtons[i].gameObject.name = assetPrefab[i].name;
                 assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
                 assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
+
+                createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
 
                 assetButtons[i].onClick.AddListener(() => SetActivePrefab(createdButton.GetComponent<Button>(), currMenu));
 
