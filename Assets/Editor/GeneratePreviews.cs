@@ -9,7 +9,7 @@ public class GeneratePreviews : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] categories = { "Bathroom", "Beds", "Cabinets & Racks", "Christmas", "Effects", "Gifts", "Lights", "Mirrors", "Music", "Nature", "Sofa & Chairs", "Tables & Chairs", "Vases", "Vehicles" };
+        string[] categories = { "Lights", "Nature", "Tables & Chairs", "Vehicles" };
         foreach (string category in categories)
         {
             GameObject[] assetPrefab = Resources.LoadAll<GameObject>(category);
