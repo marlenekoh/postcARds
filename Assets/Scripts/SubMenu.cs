@@ -80,13 +80,10 @@ public class SubMenu : MonoBehaviour
                 assetButtons[i] = createdButton.GetComponent<Button>();
 
                 assetButtons[i].gameObject.name = assetPrefab[i].name;
-                createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
-
-                createdButton.GetComponentInChildren<Image>().enabled = false;
-                // instantiate gameobject for SS
-                GameObject newObject = Instantiate(assetPrefab[i], createdButton.transform);
-                changeToUiLayer(newObject); // UI Layer
-                updateTransform(newObject);
+                Texture2D assetPreview = Resources.Load<Texture2D>(currMenu + "/" + createdButton.name);
+                Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+                Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+                createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
 
                 assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
                 assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
@@ -105,17 +102,10 @@ public class SubMenu : MonoBehaviour
         assetButtons[i] = createdButton.GetComponent<Button>();
 
         assetButtons[i].gameObject.name = assetPrefab[i].name;
-        //createdButton.GetComponentInChildren<Image>().enabled = false;
-        createdButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(currMenu + "/" + createdButton.name);
-        //Texture2D assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-        //while ((assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i])) == null)
-        //{
-        //    assetPreview = AssetPreview.GetAssetPreview(assetPrefab[i]);
-        //    System.Threading.Thread.Sleep(10);
-        //}
-        //Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
-        //Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
-        //createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
+        Texture2D assetPreview = Resources.Load<Texture2D>(currMenu + "/" + createdButton.name);
+        Rect rec = new Rect(0, 0, assetPreview.width, assetPreview.height);
+        Sprite.Create(assetPreview, rec, new Vector2(0, 0), 1);
+        createdButton.GetComponentInChildren<Image>().sprite = Sprite.Create(assetPreview, rec, new Vector2(0, 0), .01f);
 
         assetButtons[i].GetComponentInChildren<Text>().text = assetPrefab[i].name;
         assetButtons[i].GetComponentInChildren<Text>().color = Color.white;
